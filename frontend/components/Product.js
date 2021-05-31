@@ -95,7 +95,6 @@ const ProductPriceStyle = styled.h3`
 
 export default function Product({ product }) {
     return (
-        <>
             <ProductStyles>
                 <img
                     src={product?.picture?.image?.publicUrlTransformed}
@@ -126,6 +125,5 @@ export default function Product({ product }) {
                     </div>
                 </div>
             </ProductStyles>
-        </>
-    )
+      )
 }

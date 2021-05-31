@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 
-export default function useForm(initialState = {}, onSubmit) {
+export default function useForm(initialState = {}) {
     const [formData, setFormData] = useState(initialState)
-
-    useEffect(() => {
-        const stateValue = { initialState }
+ const initialValues = Object.values(initialState).join('')
+   useEffect(() => {
         setFormData(initialState)
-    }, [initialState])
-    const stateValue = { initialState }
+    }, [initialValues]) 
+   
 
     const handleInputChange = (e) => {
         let { value, name, type } = e.target
@@ -26,5 +25,5 @@ export default function useForm(initialState = {}, onSubmit) {
     const resetForm = () => {
         setFormData(initialState)
     }
-    return { formData, handleInputChange, resetForm, stateValue }
+    return { formData, handleInputChange, resetForm}
 }

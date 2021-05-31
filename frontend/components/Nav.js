@@ -1,5 +1,7 @@
-import Link from 'next/link';
-import styled from 'styled-components';
+import Link from 'next/link'
+import styled from 'styled-components'
+import SingOut from './SignOut'
+import { useUser } from './User'
 
 const NavStyle = styled.ul`
     display: flex;
@@ -7,7 +9,8 @@ const NavStyle = styled.ul`
     margin: 0;
     padding: 0;
     font-size: 2rem;
-    a {
+    a,
+    button {
         display: flex;
         align-items: center;
         position: relative;
@@ -16,6 +19,8 @@ const NavStyle = styled.ul`
         padding: 1rem 3rem;
         font-weight: 900;
         font-size: 1em;
+        border: 0;
+        cursor: pointer;
     }
     @media (max-width: 700px) {
         font-size: 10px;
@@ -33,12 +38,22 @@ const NavStyle = styled.ul`
     }
 `
 export default function Nav() {
-  return (
-      <NavStyle>
-          <Link href='/products'>Products</Link>
-          <Link href='/sell '>Sell</Link>
-          <Link href='/orders'>Orders</Link>
-          <Link href='/account '>Account</Link>
-      </NavStyle>
-  )
+    const user = useUser()
+    console.log(user)
+    return (
+        <NavStyle>
+            <Link href='/products'>Products</Link>
+            {user && (
+                <>
+                    <Link href='/sell '>Sell</Link>
+                    <Link href='/orders'>Orders</Link>
+                    <Link href='/account '>Account</Link>
+                    <SingOut/>
+                </>
+            )}
+            {!user && (
+                <Link href="/signin">Singin</Link>
+            )}
+        </NavStyle>
+    )
 }

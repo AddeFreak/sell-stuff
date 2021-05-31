@@ -1,9 +1,8 @@
-import { useMutation, useQuery } from "@apollo/client"
-import gql from "graphql-tag"
-import  Router  from "next/router"
-import styled from "styled-components"
-import useForm from "../lib/useForm"
-
+import { useMutation, useQuery } from '@apollo/client'
+import gql from 'graphql-tag'
+import Router from 'next/router'
+import styled from 'styled-components'
+import useForm from '../lib/useForm'
 
 import { SINGLE_PRODUCT_QUERY } from './SingleProduct'
 
@@ -43,112 +42,100 @@ const FormStyle = styled.form`
     fieldset {
         border: none;
     }
-    @media screen and (max-width: 300px) {
+    /* @media screen and (max-width: 300px) {
         span.psw {
             display: block;
             float: none;
-        }
-    }
+        } 
+    }*/
 `
 
 const UPDATE_PRODUCT_MUTATION = gql`
     mutation UPDATE_PRODUCT_MUTATION(
         $id: ID!
-     
         $name: String
         $description: String
         $price: Int
-      
     ) {
         updateProduct(
             id: $id
-            data: {
-                name: $name
-                description: $description
-                price: $price
-            }
+            data: { name: $name, description: $description, price: $price }
         ) {
             id
             name
             description
             price
-            
         }
-        
-        
     }
 `
 
-export default function UpdateProduct({id}) {
-  const { data, error, loading } = useQuery(SINGLE_PRODUCT_QUERY,
-    { variables: { id: id } })
-  const { formData, handleInputChange, resetForm } = useForm(data?.Product)
-  const [updateProduct, mutationResponse] = useMutation(
-      UPDATE_PRODUCT_MUTATION,
-      {
-          variables: {
-          id,
-           
-              name: formData.name,
-            description: formData.description,
-            price: formData.price,
-              }
-             
-          },
-      
-  )
+export default function UpdateProduct({ id }) {
+    const { data, error, loading } = useQuery(SINGLE_PRODUCT_QUERY, {
+        variables: { id: id },
+    })
+    const { formData, handleInputChange, resetForm } = useForm(data?.Product)
+    const [updateProduct, mutationResponse] = useMutation(
+        UPDATE_PRODUCT_MUTATION,
+        {
+            variables: {
+                id,
+
+                name: formData.name,
+                description: formData.description,
+                price: formData.price,
+            },
+        }
+    )
 
     if (loading) return <p>Loading...</p>
     if (error) return <p>{error.message}</p>
-  return (
-      <FormStyle
-          onSubmit={async (e) => {
-              e.preventDefault()
-              const res = await updateProduct()
-
-          }}
-      >
-          {/* //Disable fieldset when uploading (aria-busy) 
+    return (
+        <FormStyle
+            onSubmit={async (e) => {
+                e.preventDefault()
+                const res = await updateProduct()
+            }}
+        >
+            {/* //Disable fieldset when uploading (aria-busy) 
             DisplayError*/}
-          <fieldset disabled={mutationResponse.loading}>
-              <div className='formcontainer'>
-                  <div className='container'>
-                   
-                      <label htmlFor='name'>
-                          <strong>Name</strong>
-                          <input
-                              type='text'
-                              name='name'
-                              id='name'
-                              placeholder='Name'
-                              value={formData.name}
-                              onChange={handleInputChange}
-                          />
-                      </label>
-                      <label htmlFor='price'>
-                          <strong>Price</strong>
-                          <input
-                              type='number'
-                              name='price'
-                              value={formData.price}
-                              placeholder='Price'
-                              onChange={handleInputChange}
-                          />
-                      </label>
-                      <label htmlFor='description'>
-                          <strong>Description</strong>
-                          <textarea
-                              id='description'
-                              name='description'
-                              value={formData.description}
-                              placeholder='Description'
-                              onChange={handleInputChange}
-                          />
-                      </label>
-                  </div>
-                  <button type='submit'>Update Product</button>
-              </div>
-          </fieldset>
-      </FormStyle>
-  )
+            <fieldset disabled={mutationResponse.loading}>
+                <div className='formcontainer'>
+                    <div className='container'>
+                        <label htmlFor='name'>
+                            <strong>Name</strong>
+                            <input
+                                type='text'
+                                name='name'
+                                id='name'
+                                placeholder='Name'
+                                value={formData.name}
+                                onChange={handleInputChange}
+                            />
+                        </label>
+                        <label htmlFor='price'>
+                            <strong>Price</strong>
+                            <input
+                                type='number'
+                                name='price'
+                                value={formData.price}
+                                placeholder='Price'
+                                onChange={handleInputChange}
+                            />
+                        </label>
+                        <label htmlFor='description'>
+                            <strong>Description</strong>
+                            <textarea
+                                id='description'
+                                name='description'
+                                value={formData.description}
+                                placeholder='Description'
+                                onChange={handleInputChange}
+                            />
+                        </label>
+                    </div>
+                    <button type='submit'>Update Product</button>
+                </div>
+            </fieldset>
+        </FormStyle>
+    )
 }

@@ -18,7 +18,9 @@ html {
 }
 a {
     text-decoration: none;
+    color: purple;
    }
+   button {font-family: monospace,'Courier New', Courier;}
 `
 const PageStyle = styled.div`
     max-width: 1000px;
