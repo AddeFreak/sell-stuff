@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 import moneyFormat from '../lib/moneyFormat';
+import DeleteProduct from './DeleteProduct';
 
 const ProductStyles = styled.div`
     display: grid;
@@ -23,8 +24,11 @@ const ProductStyles = styled.div`
         padding: 0 2.5rem;
         font-size: 1.5rem;
     }
-    .edit {
-        text-align: end;
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        width: 100%;
+        padding: 1rem;
     }
 `
 const ProductTextStyle = styled.h2`
@@ -67,24 +71,34 @@ const ParaStyle = styled.p`
 `
 export default function Product({ product }) {
   return (
-    <>
-      <ProductStyles>
-        <img
-          src={product?.picture?.image?.publicUrlTransformed}
-          alt={product.name}
-        />
-        <ProductTextStyle>
-          <Link href={`/product/${product.id}`}>{product.name}</Link>
-        </ProductTextStyle>
-        <ProductPriceStyle>{moneyFormat(product.price)}</ProductPriceStyle>
-        <ParaStyle>{product.description}</ParaStyle>
-        <div className="edit"><Link href={{
-          pathname: 'update',
-          query: {
-            id: product.id,
-          },
-        }}>Edit</Link></div>
-      </ProductStyles> 
-    </>
-  );
+      <>
+          <ProductStyles>
+              <img
+                  src={product?.picture?.image?.publicUrlTransformed}
+                  alt={product.name}
+              />
+              <ProductTextStyle>
+                  <Link href={`/product/${product.id}`}>{product.name}</Link>
+              </ProductTextStyle>
+              <ProductPriceStyle>
+                  {moneyFormat(product.price)}
+              </ProductPriceStyle>
+              <ParaStyle>{product.description}</ParaStyle>
+              <div className='buttons'>
+                  <Link
+                      href={{
+                          pathname: '/update',
+                          query: {
+                              id: product.id,
+                          },
+                      }}
+                  >
+                      Edit
+                  </Link>
+                  <DeleteProduct id={product.id}>Delete</DeleteProduct>
+              </div>
+          </ProductStyles>
+          
+      </>
+  )
 }
