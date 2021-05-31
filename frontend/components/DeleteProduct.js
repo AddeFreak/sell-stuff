@@ -15,13 +15,14 @@ function updateCache(cache, payload) {
   const deleteCache = cache.identify(payload.data.deleteProduct)
   cache.evict(deleteCache)
 }
-export default function DeleteProduct({ id}) {
+export default function DeleteProduct({ id, children}) {
   const [deleteProduct, { loading, error }] = useMutation(DELETE_PRODUCT_MUTATION, {
     variables: { id: id },
     update: updateCache
   })
   return <button type="button"
     onClick={() => {
-    deleteProduct()
-    }}>Delete</button>
+      if (confirm('Are you sure you want to delete this item?'))
+        deleteProduct()
+    }}>{children}</button>
 }
