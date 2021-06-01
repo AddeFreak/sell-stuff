@@ -18,7 +18,7 @@ query ALL_PRODUCTS_QUERY{
     }
   }
 }
-`
+` 
 const ProductsStyle = styled.div`
 display: grid;
 grid-template-columns: repeat(2, 1fr);
