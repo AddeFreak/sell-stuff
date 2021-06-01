@@ -105,7 +105,7 @@ export default function SignIn() {
                       onChange={handleInputChange}
                   />
               </label>
-              <button type='submit'>Sign In!</button>
+              <button type='submit'> Sign In! </button>
           </fieldset>
       </FormStyle>
   )
