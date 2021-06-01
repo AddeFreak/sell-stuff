@@ -21,6 +21,7 @@ const NavStyle = styled.ul`
         font-size: 1em;
         border: 0;
         cursor: pointer;
+        color: rgb(9,0,124)
     }
     @media (max-width: 700px) {
         font-size: 10px;

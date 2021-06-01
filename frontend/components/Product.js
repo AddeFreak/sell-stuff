@@ -62,8 +62,8 @@ const ProductTextStyle = styled.h2`
     position: absolute;
     bottom: -7px;
     left: -7px;
-    background-color: black;
-    color: white;
+    background-color: rgb(9, 0, 124);
+    color: rgb(247, 247, 247);
     margin: 0rem;
     font-size: 1.25rem;
     padding: 1rem;
@@ -71,7 +71,7 @@ const ProductTextStyle = styled.h2`
         display: inline;
         font-size: 4rem;
         text-align: center;
-        color: white;
+        color: rgb(247, 247, 247);
         padding: 0 1rem;
         font-size: 4rem;
         font-weight: normal;
@@ -81,7 +81,7 @@ const ProductTextStyle = styled.h2`
 `
 const ProductPriceStyle = styled.h3`
     position: absolute;
-    background-color: black;
+    background-color: rgb(9, 0, 124);
     color: white;
     margin: 0rem;
     font-size: 2rem;
@@ -89,7 +89,6 @@ const ProductPriceStyle = styled.h3`
     line-height: 1.3;
     top: -4px;
     right: -4px;
-    color: white;
     padding: 1rem;
 `
 

@@ -18,7 +18,7 @@ html {
 }
 a {
     text-decoration: none;
-    color: purple;
+    color: rgb(9,0,124)
    }
    button {font-family: monospace,'Courier New', Courier;}
 `
