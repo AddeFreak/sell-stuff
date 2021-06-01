@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import styled from 'styled-components'
+import { useCart } from '../lib/cartState'
 import SingOut from './SignOut'
 import { useUser } from './User'
 
@@ -40,6 +41,7 @@ const NavStyle = styled.ul`
 `
 export default function Nav() {
     const user = useUser()
+    const {toggleCart} = useCart()
     console.log(user)
     return (
         <NavStyle>
@@ -49,12 +51,11 @@ export default function Nav() {
                     <Link href='/sell '>Sell</Link>
                     <Link href='/orders'>Orders</Link>
                     <Link href='/account '>Account</Link>
-                    <SingOut/>
+                    <SingOut />
+                    <button onClick={toggleCart}>My cart</button>
                 </>
             )}
-            {!user && (
-                <Link href="/signin">Singin</Link>
-            )}
+            {!user && <Link href='/signin'>Singin</Link>}
         </NavStyle>
     )
 }

@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { useCart } from "../lib/cartState"
 import CartItem from "./CartItem" 
 import { useUser } from "./User"
 
@@ -19,7 +20,9 @@ const CartStyle = styled.div`
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
     display: grid;
     grid-template-rows: auto 1fr;
-  
+  button {
+    display: flex;
+  }
     ${(props) => props.open && `transform: translateX(0);`};
     ul {
         list-style: none;
@@ -36,11 +39,15 @@ const CartNameStyle = styled.h3`
 `
 export default function Cart() {
   const cartStuff = useUser()
+  const {cartOpen, toggleCart} = useCart()
   if (!cartStuff) return null
   console.log(cartStuff)
   return (
-      <CartStyle open={true} >
-          <CartNameStyle>{cartStuff.name}'s Cart</CartNameStyle>
+      <CartStyle open={cartOpen} >
+      <CartNameStyle>{cartStuff.name}'s Cart
+      <button onClick={toggleCart}>X</button>
+      </CartNameStyle>
+      
           <ul>
              {cartStuff.cart.map((cartItem) => 
                   <CartItem key={cartItem.id} cartItem={cartItem} />

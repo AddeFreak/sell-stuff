@@ -1,13 +1,16 @@
 import Pages from '../components/Pages';
 import { ApolloProvider } from '@apollo/client';
 import withData from '../lib/withData'
+import { CartStateProvider } from '../lib/cartState';
 function MyApp({ Component, pageProps, apollo }) {
 
   return (
     <ApolloProvider client={apollo}>
+      <CartStateProvider>
     <Pages>
       <Component {...pageProps} />
-    </Pages>
+        </Pages>
+      </CartStateProvider>
     </ApolloProvider>
   );
 }
