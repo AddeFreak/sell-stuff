@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 import moneyFormat from '../lib/moneyFormat'
+import AddToCart from './AddToCart'
 import DeleteProduct from './DeleteProduct'
 
 const ProductStyles = styled.div`
@@ -35,6 +36,7 @@ const ProductStyles = styled.div`
     }
     .edit {
         text-align: center;
+        text-decoration: none;
         min-width: 20%;
         border-radius: 3px;
         border: 1px solid black;
@@ -46,6 +48,18 @@ const ProductStyles = styled.div`
         }
     }
     .delete {
+        text-align: center;
+        min-width: 20%;
+        border-radius: 3px;
+        padding: 1rem;
+        border: 1px solid black;
+        & > * {
+            background: white;
+            border: 0;
+            font-size: 1rem;
+        }
+    }
+    .add {
         text-align: center;
         min-width: 20%;
         border-radius: 3px;
@@ -106,7 +120,8 @@ export default function Product({ product }) {
                     {moneyFormat(product.price)}
                 </ProductPriceStyle>
                 <p>{product.description}</p>
-                <div className='buttons'>
+        <div className='buttons'>
+          <div className="add"><AddToCart id={product.id}/>Add       </div> 
                     <div className='edit'>
                         <Link
                             href={{

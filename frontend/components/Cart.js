@@ -20,12 +20,13 @@ const CartStyle = styled.div`
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
     display: grid;
     grid-template-rows: auto 1fr;
-  button {
-    display: flex;
-  }
+    button {
+        display: flex;
+    }
     ${(props) => props.open && `transform: translateX(0);`};
     ul {
         list-style: none;
+        overflow: scroll;
     }
 `
 const CartNameStyle = styled.h3`

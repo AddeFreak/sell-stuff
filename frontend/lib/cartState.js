@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { createContext } from "react";
 import { useState } from "react";
 
-const LocalStateContext = createContext()
+const CartStateContext = createContext()
 
  
 function CartStateProvider({ children }) {
@@ -12,14 +12,14 @@ function CartStateProvider({ children }) {
   }
 
   return (
-      <LocalStateContext.Provider value={{ cartOpen, setCartOpen, toggleCart }}>
+      <CartStateContext.Provider value={{ cartOpen, setCartOpen, toggleCart }}>
           {children}
-      </LocalStateContext.Provider>
+      </CartStateContext.Provider>
   )
 }
 
 function useCart() {
-  const wholeCart = useContext(LocalStateContext)
+  const wholeCart = useContext(CartStateContext)
   return wholeCart
 }
 export {CartStateProvider, useCart}
