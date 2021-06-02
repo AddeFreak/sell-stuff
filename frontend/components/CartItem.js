@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import RemoveFromCart from "./RemoveFromCart"
 
 const CartItemStyle = styled.li`
     display: grid;
@@ -6,7 +7,9 @@ const CartItemStyle = styled.li`
     img {
         margin: 1rem;
     }
-    
+    button {
+      justify-self: flex-start;
+    }
 `
 export default function CartItem({ cartItem }) {
   return <CartItemStyle>
@@ -14,7 +17,8 @@ export default function CartItem({ cartItem }) {
     <div>
       <h3>{cartItem.product.name}</h3>
       <p>{cartItem.product.price}</p>
+      <RemoveFromCart id={cartItem.id} />
     </div>
-  
+    
   </CartItemStyle>
 }
