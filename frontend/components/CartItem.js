@@ -8,9 +8,6 @@ const CartItemStyle = styled.li`
     img {
         margin: 1rem;
     }
-    button {
-      
-    }
 `
 
 export default function CartItem({ cartItem }) {

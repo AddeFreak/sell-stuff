@@ -21,9 +21,6 @@ const CartStyle = styled.div`
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
     display: grid;
     grid-template-rows: auto 1fr;
-    button {
-        display: flex;
-    }
     ${(props) => props.open && `transform: translateX(0);`};
     ul {
         list-style: none;
@@ -39,6 +36,14 @@ const CartNameStyle = styled.h3`
     font-size: 3rem;
     font-weight: 400;
 `
+const CloseButtonStyle = styled.button`
+   border: none;
+        display: inline-block;
+        position: absolute;
+        background-color: pink;
+        top: 2rem;
+        right: 4rem;
+`
 function totalPrice(cart) {
     return cart.reduce((tally, cartItem) => {
         if (!cartItem.product) return tally
@@ -52,17 +57,22 @@ export default function Cart() {
   console.log(cartStuff)
   
   return (
-      <CartStyle open={cartOpen} >
-      <CartNameStyle>{cartStuff.name}'s Cart
-      <button onClick={toggleCart}>X</button>
-      </CartNameStyle>
-      
+      <CartStyle open={cartOpen}>
+          <CartNameStyle>
+              {cartStuff.name}'s Cart
+              <div className='buttisch'>
+                  <CloseButtonStyle type='button' onClick={toggleCart}>
+                      X
+                  </CloseButtonStyle>
+              </div>
+          </CartNameStyle>
+
           <ul>
-             {cartStuff.cart.map((cartItem) => 
+              {cartStuff.cart.map((cartItem) => (
                   <CartItem key={cartItem.id} cartItem={cartItem} />
-              )} 
-      </ul>
-      <p>{moneyFormat(totalPrice(cartStuff.cart))}</p>
+              ))}
+          </ul>
+          <p>{moneyFormat(totalPrice(cartStuff.cart))}</p>
       </CartStyle>
   )
 } 
