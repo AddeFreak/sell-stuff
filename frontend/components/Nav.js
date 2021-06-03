@@ -22,13 +22,14 @@ const NavStyle = styled.ul`
         font-size: 1em;
         border: 0;
         cursor: pointer;
-        color: rgb(9,0,124)
-    }
-    @media (max-width: 700px) {
+        color: rgb(9, 0, 124);
+        @media (max-width: 700px) {
         font-size: 10px;
         padding: 0 10px;
     }
-    &:hover,
+    }
+    
+  /*   &:hover,
     &:focus {
         outline: none;
         &:after {
@@ -36,8 +37,13 @@ const NavStyle = styled.ul`
         }
         @media (max-width: 700px) {
             width: calc(100% - 10px);
-        }
+        } */
+    @media (max-width: 1300px) {
+        width: 100%;
+        justify-content: center;
+        font-size: 1.5rem;
     }
+    
 `
 export default function Nav() {
     const user = useUser()

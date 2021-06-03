@@ -5,8 +5,8 @@ import AddToCart from './AddToCart'
 import DeleteProduct from './DeleteProduct'
 
 const ProductStyles = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); */
     grid-gap: 1rem;
     border: 1px solid #e2e2e2;
     border-radius: 0.5rem;
@@ -35,6 +35,10 @@ const ProductStyles = styled.div`
         padding: 0.2rem;
     }
     .edit {
+      a {
+          color:black;
+      }
+      
         text-align: center;
         text-decoration: none;
         min-width: 20%;
@@ -70,17 +74,28 @@ const ProductStyles = styled.div`
             border: 0;
             font-size: 1rem;
         }
+         @media (max-width: 700px) {
+        font-size: 10px;
+        padding: 0 10px;
+    }
+    @media (max-width: 425px) {
+        font-size: 10px;
+        padding: 0 10px;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
     }
 `
 const ProductTextStyle = styled.h2`
     position: absolute;
-    bottom: -7px;
-    left: -7px;
+    bottom: 0px;
+    left: 0px;
     background-color: rgb(9, 0, 124);
     color: rgb(247, 247, 247);
     margin: 0rem;
     font-size: 1.25rem;
     padding: 1rem;
+    border-radius: 3px;
     a {
         display: inline;
         font-size: 4rem;
@@ -101,9 +116,10 @@ const ProductPriceStyle = styled.h3`
     font-size: 2rem;
     display: inline-block;
     line-height: 1.3;
-    top: -4px;
-    right: -4px;
+    top: 0px;
+    right: 0px;
     padding: 1rem;
+    border-radius: 3px;
 `
 
 export default function Product({ product }) {

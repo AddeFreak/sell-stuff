@@ -83,8 +83,8 @@ export default function SignUp() {
           <fieldset>
         <h2>Sign Up For An Account</h2>
         {data?.createUser && (
-          <p> You Signed up with {data.createUser.email} 
-           - You can now sign in!</p>
+          <p> You Signed up with "{data.createUser.email}".   
+               You can now sign in!</p>
         )}
               <label htmlFor='name'>
                  Your Name

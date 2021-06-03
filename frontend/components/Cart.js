@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { useCart } from "../lib/cartState"
 import moneyFormat from "../lib/moneyFormat"
 import CartItem from "./CartItem" 
+import { Checkout } from "./Checkout"
 import { useUser } from "./User"
 
 const CartStyle = styled.div`
@@ -11,10 +12,7 @@ const CartStyle = styled.div`
     height: 100%;
     z-index: 5;
     width: 40%;
-    position: relative;
     background: white;
-    position: fixed;
-    height: 100%;
     top: 0;
     right: 0;
     min-width: 500px;
@@ -72,7 +70,8 @@ export default function Cart() {
                   <CartItem key={cartItem.id} cartItem={cartItem} />
               ))}
           </ul>
-          <p>{moneyFormat(totalPrice(cartStuff.cart))}</p>
+      <p>{moneyFormat(totalPrice(cartStuff.cart))}</p>
+      <Checkout/>
       </CartStyle>
   )
 } 

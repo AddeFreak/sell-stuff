@@ -2,6 +2,7 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import Nav from './Nav'
 import Cart from './Cart'
+import { useState } from 'react'
 
 const Logo = styled.h1`
     margin-left: 2rem;
@@ -21,6 +22,48 @@ const StyledHeader = styled.header`
         align-items: center;
         border-bottom: 4px solid black;
     }
+    @media (max-width: 425px) {
+        ul {
+            transform: translateX(100%);
+            position: fixed;
+            box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
+            height: 100%;
+            z-index: 5;
+            width: 40%;
+            background: white;
+            top: 0;
+            right: 0;
+            display: grid;
+            ${(props) => props.open && `transform: translateX(0);`};
+        }
+        .hamburger { 
+            right: 2rem;
+            top: 2.5rem;
+            /* transform: translate(-50%, -50%); */
+            position: absolute;
+            width: 50px;
+        }
+        .hamburger:before,
+        .hamburger:after,
+        .hamburger div {
+            background: rgb(9, 0, 124);
+            content: '';
+            display: block;
+            height: 6px;
+            border-radius: 3px;
+            margin: 7px 0;
+            transition: 0.5s;
+        }
+        /* .hamburger:hover:before {
+            transform: translateY(12px) rotate(135deg);
+        }
+        .hamburger:hover:after {
+            transform: translateY(-12px) rotate(-135deg);
+        }
+        .hamburger:hover div {
+            transform: scale(0);
+        } */
+    }
     .subnav {
         display: grid;
         grid-template-columns: auto 1fr;
@@ -32,18 +75,24 @@ const StyledHeader = styled.header`
 `
 
 export default function Header() {
+   const [isOpen, setIsOpen] = useState(false)
+   const toggle = () => setIsOpen(!isOpen)
+    
     return (
-        <StyledHeader>
+        <StyledHeader open={!isOpen}>
             <div className='navbar'>
                 <Logo>
                     <Link href='/'>SELL STUFF</Link>
-          </Logo>
-          <Nav />
+                </Logo>
+                <Nav />
+            </div>
+            <div className='hamburger'>
+                <div onClick={toggle}></div>
             </div>
             <div className='subnav'>
                 <p>Search</p>
             </div>
-           <Cart/>
+            <Cart />
         </StyledHeader>
     )
 }

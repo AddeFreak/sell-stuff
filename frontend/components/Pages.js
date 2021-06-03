@@ -3,12 +3,15 @@ import Header from './Header'
 
 const GlobalStyles = createGlobalStyle`
 body {
+   
+    width: 100%;
 padding: 0;
 margin: 0;
 font-size: 1.5rem;
 font-family: monospace, Courier, ;
 }
 html {
+    
   box-sizing: border-box;
   font-size: 10px;
   font-family: monospace,'Courier New', Courier;

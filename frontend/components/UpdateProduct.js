@@ -79,7 +79,6 @@ export default function UpdateProduct({ id }) {
         {
             variables: {
                 id,
-
                 name: formData.name,
                 description: formData.description,
                 price: formData.price,
@@ -94,6 +93,9 @@ export default function UpdateProduct({ id }) {
             onSubmit={async (e) => {
                 e.preventDefault()
                 const res = await updateProduct()
+                Router.push({
+                    pathname: `/product/${res.data.updateProduct.id}`,
+                })
             }}
         >
             {/* //Disable fieldset when uploading (aria-busy) 

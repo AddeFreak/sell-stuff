@@ -20,9 +20,14 @@ query ALL_PRODUCTS_QUERY{
 }
 ` 
 const ProductsStyle = styled.div`
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 50px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+    @media (max-width: 425px) {
+        font-size: 10px;
+        padding: 0 10px;
+        grid-template-columns: repeat(1, 1fr);
+    }
 `
 export default function Products() {
     const {data, error, loading} = useQuery(ALL_PRODUCTS_QUERY)
