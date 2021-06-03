@@ -121,7 +121,7 @@ export default function Product({ product }) {
                 </ProductPriceStyle>
                 <p>{product.description}</p>
         <div className='buttons'>
-          <div className="add"><AddToCart id={product.id}/>Add       </div> 
+          <div className="add"><AddToCart id={product.id}/></div> 
                     <div className='edit'>
                         <Link
                             href={{

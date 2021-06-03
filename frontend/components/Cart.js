@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { useCart } from "../lib/cartState"
+import moneyFormat from "../lib/moneyFormat"
 import CartItem from "./CartItem" 
 import { useUser } from "./User"
 
@@ -38,11 +39,18 @@ const CartNameStyle = styled.h3`
     font-size: 3rem;
     font-weight: 400;
 `
+function totalPrice(cart) {
+    return cart.reduce((tally, cartItem) => {
+        if (!cartItem.product) return tally
+        return tally + cartItem.quantity * cartItem.product.price
+    }, 0)
+}
 export default function Cart() {
   const cartStuff = useUser()
   const {cartOpen, toggleCart} = useCart()
   if (!cartStuff) return null
   console.log(cartStuff)
+  
   return (
       <CartStyle open={cartOpen} >
       <CartNameStyle>{cartStuff.name}'s Cart
@@ -53,7 +61,8 @@ export default function Cart() {
              {cartStuff.cart.map((cartItem) => 
                   <CartItem key={cartItem.id} cartItem={cartItem} />
               )} 
-          </ul>
+      </ul>
+      <p>{moneyFormat(totalPrice(cartStuff.cart))}</p>
       </CartStyle>
   )
 } 
