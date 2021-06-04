@@ -24,7 +24,7 @@ const StyledHeader = styled.header`
     }
     @media (max-width: 425px) {
         ul {
-            transform: translateX(100%);
+            transform: translateX(-100%);
             position: fixed;
             box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
             height: 100%;
@@ -32,11 +32,14 @@ const StyledHeader = styled.header`
             width: 40%;
             background: white;
             top: 0;
-            right: 0;
+            left: 0;
             display: grid;
             ${(props) => props.open && `transform: translateX(0);`};
         }
-        .hamburger { 
+        .cartlist {
+            transform: translateX(50%);
+        }
+        .hamburger {
             right: 2rem;
             top: 2.5rem;
             /* transform: translate(-50%, -50%); */
@@ -54,7 +57,7 @@ const StyledHeader = styled.header`
             margin: 7px 0;
             transition: 0.5s;
         }
-        /* .hamburger:hover:before {
+         .hamburger:hover:before {
             transform: translateY(12px) rotate(135deg);
         }
         .hamburger:hover:after {
@@ -62,7 +65,7 @@ const StyledHeader = styled.header`
         }
         .hamburger:hover div {
             transform: scale(0);
-        } */
+        } 
     }
     .subnav {
         display: grid;
@@ -79,18 +82,18 @@ export default function Header() {
    const toggle = () => setIsOpen(!isOpen)
     
     return (
-        <StyledHeader open={!isOpen}>
+        <StyledHeader open={isOpen}>
             <div className='navbar'>
                 <Logo>
                     <Link href='/'>SELL STUFF</Link>
                 </Logo>
                 <Nav />
             </div>
-            <div className='hamburger'>
+            <div onClick={toggle} className='hamburger'>
                 <div onClick={toggle}></div>
             </div>
             <div className='subnav'>
-                <p>Search</p>
+                <p></p>
             </div>
             <Cart />
         </StyledHeader>

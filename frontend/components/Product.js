@@ -35,10 +35,10 @@ const ProductStyles = styled.div`
         padding: 0.2rem;
     }
     .edit {
-      a {
-          color:black;
-      }
-      
+        a {
+            color: black;
+        }
+
         text-align: center;
         text-decoration: none;
         min-width: 20%;
@@ -49,6 +49,12 @@ const ProductStyles = styled.div`
         & > * {
             border: 0;
             font-size: 1rem;
+        }
+        @media (max-width: 425px) {
+            font-size: 10px;
+            width: 100%;
+            
+            
         }
     }
     .delete {
@@ -62,6 +68,12 @@ const ProductStyles = styled.div`
             border: 0;
             font-size: 1rem;
         }
+        @media (max-width: 425px) {
+            font-size: 10px;
+            width: 100%;
+            
+            
+        }
     }
     .add {
         text-align: center;
@@ -74,16 +86,20 @@ const ProductStyles = styled.div`
             border: 0;
             font-size: 1rem;
         }
-         @media (max-width: 700px) {
-        font-size: 10px;
-        padding: 0 10px;
-    }
-    @media (max-width: 425px) {
-        font-size: 10px;
-        padding: 0 10px;
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-    }
+        @media (max-width: 700px) {
+            font-size: 10px;
+            padding: 0 10px;
+        }
+        @media (max-width: 425px) {
+            font-size: 10px;
+            text-align: center;
+            width: 100%;
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+        }
+           
+            
+            
     }
 `
 const ProductTextStyle = styled.h2`
@@ -106,6 +122,15 @@ const ProductTextStyle = styled.h2`
         font-weight: normal;
         letter-spacing: -3.5px;
         line-height: 1em;
+    }
+    @media (max-width: 425px) {
+        font-size: 2rem;
+        display: flex;
+        font-size: 1rem;
+        bottom: 20rem;
+        a {
+            text-align: center;
+        }
     }
 `
 const ProductPriceStyle = styled.h3`

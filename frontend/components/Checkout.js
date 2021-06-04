@@ -1,5 +1,7 @@
-import { CardElement, Elements } from '@stripe/react-stripe-js'
+import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import nProgress from 'nprogress'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 const CheckoutFormStyles = styled.form`
@@ -20,16 +22,33 @@ const CheckoutButton = styled.button`
     `
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)
 
-function handleSubmit(e) {
-   e.preventDefault()
- }
-export function Checkout() {
+function CheckoutForm() {
+ const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
+  const stripe = useStripe();
+  const elements = useElements();
+  function handleSubmit(e) {
+    e.preventDefault()
+    setLoading(true)
+
+    nProgress.start()
+  }
     return (
-        <Elements stripe={stripePromise}>
-            <CheckoutFormStyles onSubmit={handleSubmit}>
+      
+        <CheckoutFormStyles onSubmit={handleSubmit}>
           <CardElement />
           <CheckoutButton>Pay</CheckoutButton>
-            </CheckoutFormStyles>
-        </Elements>
+        </CheckoutFormStyles>
+    
     )
 }
+function Checkout() {
+  return (
+    <Elements stripe={stripePromise} >
+      <CheckoutForm/>
+     </Elements >
+  )
+    
+  }
+
+export {Checkout}

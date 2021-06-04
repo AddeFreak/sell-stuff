@@ -23,6 +23,26 @@ const CartStyle = styled.div`
     ul {
         list-style: none;
         overflow: scroll;
+        overflow-x: hidden;
+    }
+    p {
+        margin-left: 0.5rem;
+    }
+    .para {
+        margin-left: 3rem;
+        font-size: 5rem;
+    }
+    @media (max-width: 425px) {
+        min-width: 100vw;
+        grid-template-rows: auto 1fr;
+
+        ul {
+            max-height: 48vh;
+            margin-top: 30vh;
+            padding: 0;
+            min-width: 60vw;
+            box-shadow: none !important;
+        }
     }
 `
 const CartNameStyle = styled.h3`
@@ -40,7 +60,7 @@ const CloseButtonStyle = styled.button`
         position: absolute;
         background-color: pink;
         top: 2rem;
-        right: 4rem;
+        right: 3rem;
 `
 function totalPrice(cart) {
     return cart.reduce((tally, cartItem) => {
@@ -65,12 +85,12 @@ export default function Cart() {
               </div>
           </CartNameStyle>
 
-          <ul>
+          <ul className="cartlist">
               {cartStuff.cart.map((cartItem) => (
                   <CartItem key={cartItem.id} cartItem={cartItem} />
               ))}
           </ul>
-      <p>{moneyFormat(totalPrice(cartStuff.cart))}</p>
+      <p className="para"><em>Total {moneyFormat(totalPrice(cartStuff.cart))}</em></p>
       <Checkout/>
       </CartStyle>
   )
