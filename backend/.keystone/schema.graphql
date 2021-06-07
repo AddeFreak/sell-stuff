@@ -1,9 +1,36 @@
+input CartItemRelateToManyInput {
+  create: [CartItemCreateInput]
+  connect: [CartItemWhereUniqueInput]
+  disconnect: [CartItemWhereUniqueInput]
+  disconnectAll: Boolean
+}
+
+input ProductRelateToManyInput {
+  create: [ProductCreateInput]
+  connect: [ProductWhereUniqueInput]
+  disconnect: [ProductWhereUniqueInput]
+  disconnectAll: Boolean
+}
+
+input OrderRelateToManyInput {
+  create: [OrderCreateInput]
+  connect: [OrderWhereUniqueInput]
+  disconnect: [OrderWhereUniqueInput]
+  disconnectAll: Boolean
+}
+
 """ A keystone list """
 type User {
   id: ID!
   name: String
   email: String
   password_is_set: Boolean
+  cart(where: CartItemWhereInput, search: String, sortBy: [SortCartItemsBy!], orderBy: String, first: Int, skip: Int): [CartItem!]!
+  _cartMeta(where: CartItemWhereInput, search: String, sortBy: [SortCartItemsBy!], orderBy: String, first: Int, skip: Int): _QueryMeta
+  products(where: ProductWhereInput, search: String, sortBy: [SortProductsBy!], orderBy: String, first: Int, skip: Int): [Product!]!
+  _productsMeta(where: ProductWhereInput, search: String, sortBy: [SortProductsBy!], orderBy: String, first: Int, skip: Int): _QueryMeta
+  orders(where: OrderWhereInput, search: String, sortBy: [SortOrdersBy!], orderBy: String, first: Int, skip: Int): [Order!]!
+  _ordersMeta(where: OrderWhereInput, search: String, sortBy: [SortOrdersBy!], orderBy: String, first: Int, skip: Int): _QueryMeta
   passwordResetToken_is_set: Boolean
   passwordResetIssuedAt: String
   passwordResetRedeemedAt: String
@@ -56,6 +83,33 @@ input UserWhereInput {
   email_in: [String]
   email_not_in: [String]
   password_is_set: Boolean
+
+  """ condition must be true for all nodes """
+  cart_every: CartItemWhereInput
+
+  """ condition must be true for at least 1 node """
+  cart_some: CartItemWhereInput
+
+  """ condition must be false for all nodes """
+  cart_none: CartItemWhereInput
+
+  """ condition must be true for all nodes """
+  products_every: ProductWhereInput
+
+  """ condition must be true for at least 1 node """
+  products_some: ProductWhereInput
+
+  """ condition must be false for all nodes """
+  products_none: ProductWhereInput
+
+  """ condition must be true for all nodes """
+  orders_every: OrderWhereInput
+
+  """ condition must be true for at least 1 node """
+  orders_some: OrderWhereInput
+
+  """ condition must be false for all nodes """
+  orders_none: OrderWhereInput
   passwordResetToken_is_set: Boolean
   passwordResetIssuedAt: String
   passwordResetIssuedAt_not: String
@@ -103,6 +157,12 @@ enum SortUsersBy {
   name_DESC
   email_ASC
   email_DESC
+  cart_ASC
+  cart_DESC
+  products_ASC
+  products_DESC
+  orders_ASC
+  orders_DESC
   passwordResetIssuedAt_ASC
   passwordResetIssuedAt_DESC
   passwordResetRedeemedAt_ASC
@@ -117,6 +177,9 @@ input UserUpdateInput {
   name: String
   email: String
   password: String
+  cart: CartItemRelateToManyInput
+  products: ProductRelateToManyInput
+  orders: OrderRelateToManyInput
   passwordResetToken: String
   passwordResetIssuedAt: String
   passwordResetRedeemedAt: String
@@ -134,6 +197,9 @@ input UserCreateInput {
   name: String
   email: String
   password: String
+  cart: CartItemRelateToManyInput
+  products: ProductRelateToManyInput
+  orders: OrderRelateToManyInput
   passwordResetToken: String
   passwordResetIssuedAt: String
   passwordResetRedeemedAt: String
@@ -153,6 +219,13 @@ input ProductImageRelateToOneInput {
   disconnectAll: Boolean
 }
 
+input UserRelateToOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  disconnect: UserWhereUniqueInput
+  disconnectAll: Boolean
+}
+
 """ A keystone list """
 type Product {
   id: ID!
@@ -161,6 +234,7 @@ type Product {
   status: String
   price: Int
   picture: ProductImage
+  user: User
 }
 
 input ProductWhereInput {
@@ -234,6 +308,8 @@ input ProductWhereInput {
   price_not_in: [Int]
   picture: ProductImageWhereInput
   picture_is_null: Boolean
+  user: UserWhereInput
+  user_is_null: Boolean
 }
 
 input ProductWhereUniqueInput {
@@ -253,6 +329,8 @@ enum SortProductsBy {
   price_DESC
   picture_ASC
   picture_DESC
+  user_ASC
+  user_DESC
 }
 
 input ProductUpdateInput {
@@ -261,6 +339,7 @@ input ProductUpdateInput {
   status: String
   price: Int
   picture: ProductImageRelateToOneInput
+  user: UserRelateToOneInput
 }
 
 input ProductsUpdateInput {
@@ -274,6 +353,7 @@ input ProductCreateInput {
   status: String
   price: Int
   picture: ProductImageRelateToOneInput
+  user: UserRelateToOneInput
 }
 
 input ProductsCreateInput {
@@ -409,6 +489,305 @@ input ProductImageCreateInput {
 
 input ProductImagesCreateInput {
   data: ProductImageCreateInput
+}
+
+""" A keystone list """
+type CartItem {
+  id: ID!
+  quantity: Int
+  product: Product
+  user: User
+}
+
+input CartItemWhereInput {
+  AND: [CartItemWhereInput]
+  OR: [CartItemWhereInput]
+  id: ID
+  id_not: ID
+  id_in: [ID]
+  id_not_in: [ID]
+  quantity: Int
+  quantity_not: Int
+  quantity_lt: Int
+  quantity_lte: Int
+  quantity_gt: Int
+  quantity_gte: Int
+  quantity_in: [Int]
+  quantity_not_in: [Int]
+  product: ProductWhereInput
+  product_is_null: Boolean
+  user: UserWhereInput
+  user_is_null: Boolean
+}
+
+input CartItemWhereUniqueInput {
+  id: ID!
+}
+
+enum SortCartItemsBy {
+  id_ASC
+  id_DESC
+  quantity_ASC
+  quantity_DESC
+  product_ASC
+  product_DESC
+  user_ASC
+  user_DESC
+}
+
+input CartItemUpdateInput {
+  quantity: Int
+  product: ProductRelateToOneInput
+  user: UserRelateToOneInput
+}
+
+input CartItemsUpdateInput {
+  id: ID!
+  data: CartItemUpdateInput
+}
+
+input CartItemCreateInput {
+  quantity: Int
+  product: ProductRelateToOneInput
+  user: UserRelateToOneInput
+}
+
+input CartItemsCreateInput {
+  data: CartItemCreateInput
+}
+
+input OrderRelateToOneInput {
+  create: OrderCreateInput
+  connect: OrderWhereUniqueInput
+  disconnect: OrderWhereUniqueInput
+  disconnectAll: Boolean
+}
+
+""" A keystone list """
+type OrderItem {
+  id: ID!
+  name: String
+  description: String
+  price: Int
+  quantity: Int
+  order: Order
+  picture: ProductImage
+}
+
+input OrderItemWhereInput {
+  AND: [OrderItemWhereInput]
+  OR: [OrderItemWhereInput]
+  id: ID
+  id_not: ID
+  id_in: [ID]
+  id_not_in: [ID]
+  name: String
+  name_not: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_i: String
+  name_not_i: String
+  name_contains_i: String
+  name_not_contains_i: String
+  name_starts_with_i: String
+  name_not_starts_with_i: String
+  name_ends_with_i: String
+  name_not_ends_with_i: String
+  name_in: [String]
+  name_not_in: [String]
+  description: String
+  description_not: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  description_i: String
+  description_not_i: String
+  description_contains_i: String
+  description_not_contains_i: String
+  description_starts_with_i: String
+  description_not_starts_with_i: String
+  description_ends_with_i: String
+  description_not_ends_with_i: String
+  description_in: [String]
+  description_not_in: [String]
+  price: Int
+  price_not: Int
+  price_lt: Int
+  price_lte: Int
+  price_gt: Int
+  price_gte: Int
+  price_in: [Int]
+  price_not_in: [Int]
+  quantity: Int
+  quantity_not: Int
+  quantity_lt: Int
+  quantity_lte: Int
+  quantity_gt: Int
+  quantity_gte: Int
+  quantity_in: [Int]
+  quantity_not_in: [Int]
+  order: OrderWhereInput
+  order_is_null: Boolean
+  picture: ProductImageWhereInput
+  picture_is_null: Boolean
+}
+
+input OrderItemWhereUniqueInput {
+  id: ID!
+}
+
+enum SortOrderItemsBy {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  price_ASC
+  price_DESC
+  quantity_ASC
+  quantity_DESC
+  order_ASC
+  order_DESC
+  picture_ASC
+  picture_DESC
+}
+
+input OrderItemUpdateInput {
+  name: String
+  description: String
+  price: Int
+  quantity: Int
+  order: OrderRelateToOneInput
+  picture: ProductImageRelateToOneInput
+}
+
+input OrderItemsUpdateInput {
+  id: ID!
+  data: OrderItemUpdateInput
+}
+
+input OrderItemCreateInput {
+  name: String
+  description: String
+  price: Int
+  quantity: Int
+  order: OrderRelateToOneInput
+  picture: ProductImageRelateToOneInput
+}
+
+input OrderItemsCreateInput {
+  data: OrderItemCreateInput
+}
+
+input OrderItemRelateToManyInput {
+  create: [OrderItemCreateInput]
+  connect: [OrderItemWhereUniqueInput]
+  disconnect: [OrderItemWhereUniqueInput]
+  disconnectAll: Boolean
+}
+
+""" A keystone list """
+type Order {
+  id: ID!
+  total: Int
+  items(where: OrderItemWhereInput, search: String, sortBy: [SortOrderItemsBy!], orderBy: String, first: Int, skip: Int): [OrderItem!]!
+  _itemsMeta(where: OrderItemWhereInput, search: String, sortBy: [SortOrderItemsBy!], orderBy: String, first: Int, skip: Int): _QueryMeta
+  user: User
+  charge: String
+}
+
+input OrderWhereInput {
+  AND: [OrderWhereInput]
+  OR: [OrderWhereInput]
+  id: ID
+  id_not: ID
+  id_in: [ID]
+  id_not_in: [ID]
+  total: Int
+  total_not: Int
+  total_lt: Int
+  total_lte: Int
+  total_gt: Int
+  total_gte: Int
+  total_in: [Int]
+  total_not_in: [Int]
+
+  """ condition must be true for all nodes """
+  items_every: OrderItemWhereInput
+
+  """ condition must be true for at least 1 node """
+  items_some: OrderItemWhereInput
+
+  """ condition must be false for all nodes """
+  items_none: OrderItemWhereInput
+  user: UserWhereInput
+  user_is_null: Boolean
+  charge: String
+  charge_not: String
+  charge_contains: String
+  charge_not_contains: String
+  charge_starts_with: String
+  charge_not_starts_with: String
+  charge_ends_with: String
+  charge_not_ends_with: String
+  charge_i: String
+  charge_not_i: String
+  charge_contains_i: String
+  charge_not_contains_i: String
+  charge_starts_with_i: String
+  charge_not_starts_with_i: String
+  charge_ends_with_i: String
+  charge_not_ends_with_i: String
+  charge_in: [String]
+  charge_not_in: [String]
+}
+
+input OrderWhereUniqueInput {
+  id: ID!
+}
+
+enum SortOrdersBy {
+  id_ASC
+  id_DESC
+  total_ASC
+  total_DESC
+  items_ASC
+  items_DESC
+  user_ASC
+  user_DESC
+  charge_ASC
+  charge_DESC
+}
+
+input OrderUpdateInput {
+  total: Int
+  items: OrderItemRelateToManyInput
+  user: UserRelateToOneInput
+  charge: String
+}
+
+input OrdersUpdateInput {
+  id: ID!
+  data: OrderUpdateInput
+}
+
+input OrderCreateInput {
+  total: Int
+  items: OrderItemRelateToManyInput
+  user: UserRelateToOneInput
+  charge: String
+}
+
+input OrdersCreateInput {
+  data: OrderCreateInput
 }
 
 """
@@ -630,6 +1009,45 @@ type Query {
   """ Retrieve the meta-data for the ProductImage list. """
   _ProductImagesMeta: _ListMeta
 
+  """ Search for all CartItem items which match the where clause. """
+  allCartItems(where: CartItemWhereInput, search: String, sortBy: [SortCartItemsBy!], orderBy: String, first: Int, skip: Int): [CartItem]
+
+  """ Search for the CartItem item with the matching ID. """
+  CartItem(where: CartItemWhereUniqueInput!): CartItem
+
+  """ Perform a meta-query on all CartItem items which match the where clause. 
+  """
+  _allCartItemsMeta(where: CartItemWhereInput, search: String, sortBy: [SortCartItemsBy!], orderBy: String, first: Int, skip: Int): _QueryMeta
+
+  """ Retrieve the meta-data for the CartItem list. """
+  _CartItemsMeta: _ListMeta
+
+  """ Search for all OrderItem items which match the where clause. """
+  allOrderItems(where: OrderItemWhereInput, search: String, sortBy: [SortOrderItemsBy!], orderBy: String, first: Int, skip: Int): [OrderItem]
+
+  """ Search for the OrderItem item with the matching ID. """
+  OrderItem(where: OrderItemWhereUniqueInput!): OrderItem
+
+  """ Perform a meta-query on all OrderItem items which match the where clause. 
+  """
+  _allOrderItemsMeta(where: OrderItemWhereInput, search: String, sortBy: [SortOrderItemsBy!], orderBy: String, first: Int, skip: Int): _QueryMeta
+
+  """ Retrieve the meta-data for the OrderItem list. """
+  _OrderItemsMeta: _ListMeta
+
+  """ Search for all Order items which match the where clause. """
+  allOrders(where: OrderWhereInput, search: String, sortBy: [SortOrdersBy!], orderBy: String, first: Int, skip: Int): [Order]
+
+  """ Search for the Order item with the matching ID. """
+  Order(where: OrderWhereUniqueInput!): Order
+
+  """ Perform a meta-query on all Order items which match the where clause. 
+  """
+  _allOrdersMeta(where: OrderWhereInput, search: String, sortBy: [SortOrdersBy!], orderBy: String, first: Int, skip: Int): _QueryMeta
+
+  """ Retrieve the meta-data for the Order list. """
+  _OrdersMeta: _ListMeta
+
   """ Retrieve the meta-data for all lists. """
   _ksListsMeta(where: _ksListsMetaInput): [_ListMeta]
 
@@ -693,8 +1111,63 @@ type Mutation {
 
   """ Delete multiple ProductImage items by ID. """
   deleteProductImages(ids: [ID!]): [ProductImage]
+
+  """ Create a single CartItem item. """
+  createCartItem(data: CartItemCreateInput): CartItem
+
+  """ Create multiple CartItem items. """
+  createCartItems(data: [CartItemsCreateInput]): [CartItem]
+
+  """ Update a single CartItem item by ID. """
+  updateCartItem(id: ID!, data: CartItemUpdateInput): CartItem
+
+  """ Update multiple CartItem items by ID. """
+  updateCartItems(data: [CartItemsUpdateInput]): [CartItem]
+
+  """ Delete a single CartItem item by ID. """
+  deleteCartItem(id: ID!): CartItem
+
+  """ Delete multiple CartItem items by ID. """
+  deleteCartItems(ids: [ID!]): [CartItem]
+
+  """ Create a single OrderItem item. """
+  createOrderItem(data: OrderItemCreateInput): OrderItem
+
+  """ Create multiple OrderItem items. """
+  createOrderItems(data: [OrderItemsCreateInput]): [OrderItem]
+
+  """ Update a single OrderItem item by ID. """
+  updateOrderItem(id: ID!, data: OrderItemUpdateInput): OrderItem
+
+  """ Update multiple OrderItem items by ID. """
+  updateOrderItems(data: [OrderItemsUpdateInput]): [OrderItem]
+
+  """ Delete a single OrderItem item by ID. """
+  deleteOrderItem(id: ID!): OrderItem
+
+  """ Delete multiple OrderItem items by ID. """
+  deleteOrderItems(ids: [ID!]): [OrderItem]
+
+  """ Create a single Order item. """
+  createOrder(data: OrderCreateInput): Order
+
+  """ Create multiple Order items. """
+  createOrders(data: [OrdersCreateInput]): [Order]
+
+  """ Update a single Order item by ID. """
+  updateOrder(id: ID!, data: OrderUpdateInput): Order
+
+  """ Update multiple Order items by ID. """
+  updateOrders(data: [OrdersUpdateInput]): [Order]
+
+  """ Delete a single Order item by ID. """
+  deleteOrder(id: ID!): Order
+
+  """ Delete multiple Order items by ID. """
+  deleteOrders(ids: [ID!]): [Order]
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult!
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
+  addToCart(productId: ID): CartItem
   endSession: Boolean!
 }
 
