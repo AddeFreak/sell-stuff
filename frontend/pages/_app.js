@@ -2,6 +2,13 @@ import Pages from '../components/Pages';
 import { ApolloProvider } from '@apollo/client';
 import withData from '../lib/withData'
 import { CartStateProvider } from '../lib/cartState';
+import 'nprogress/nprogress.css'
+import Nprogress from 'nprogress'
+import Router from 'next/router'
+
+Router.events.on('routeChangeStart', () => Nprogress.start())
+Router.events.on('routeChangeComplete', () => Nprogress.done())
+Router.events.on('routeChangeError', () => Nprogress.done())
 function MyApp({ Component, pageProps, apollo }) {
 
   return (

@@ -30,7 +30,6 @@ function CheckoutForm() {
   function handleSubmit(e) {
     e.preventDefault()
     setLoading(true)
-
     nProgress.start()
   }
     return (
