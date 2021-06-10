@@ -36,7 +36,7 @@ const CartStyle = styled.div`
         min-width: 100vw;
         grid-template-rows: auto 1fr;
 
-        ul {
+    ul {
             max-height: 48vh;
             margin-top: 30vh;
             padding: 0;

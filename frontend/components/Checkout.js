@@ -20,34 +20,49 @@ const CheckoutButton = styled.button`
     color: white;
     background-color: rgb(9, 0, 124);
     `
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)
+ const stripeLib = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)
 
-function CheckoutForm() {
- const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
-  const stripe = useStripe();
-  const elements = useElements();
-  function handleSubmit(e) {
-    e.preventDefault()
-    setLoading(true)
-    nProgress.start()
-  }
-    return (
-      
-        <CheckoutFormStyles onSubmit={handleSubmit}>
-          <CardElement />
-          <CheckoutButton>Pay</CheckoutButton>
-        </CheckoutFormStyles>
-    
-    )
-}
+ function CheckoutForm() {
+     const [error, setError] = useState()
+     const [loading, setLoading] = useState(false)
+     const stripe = useStripe()
+     const elements = useElements()
+     async function handleSubmit(e) {
+         e.preventDefault()
+         setLoading(true)
+         console.log('We gotta do some work..')
+         nProgress.start()
+         const { error, paymentMethod } = await stripe.createPaymentMethod({
+             type: 'card',
+             card: elements.getElement(CardElement),
+         })
+         console.log(paymentMethod)
+         if (error) {
+             setError(error)
+         }
+         
+         setLoading(false)
+         nProgress.done()
+     }
+
+     return (
+         <CheckoutFormStyles onSubmit={handleSubmit}>
+             {error && <p style={{ fontSize: 12 }}>{error.message}</p>}
+             <CardElement />
+             <CheckoutButton>Check Out Now</CheckoutButton>
+         </CheckoutFormStyles>
+     )
+ }
+
 function Checkout() {
-  return (
-    <Elements stripe={stripePromise} >
-      <CheckoutForm/>
-     </Elements >
-  )
-    
-  }
+   const [stripePromise, setStripePromise] = useState(() =>
+       loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)
+   )
+     return (
+         <Elements stripe={stripeLib}>
+             <CheckoutForm />
+         </Elements>
+     )
+ }
 
-export {Checkout}
+ export { Checkout }
