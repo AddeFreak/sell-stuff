@@ -6,9 +6,9 @@ import { Checkout } from "./Checkout"
 import { useUser } from "./User"
 
 const CartStyle = styled.div`
+    position: fixed;
     transform: translateX(100%);
     transition: all 0.3s;
-    position: fixed;
     height: 100%;
     z-index: 5;
     width: 40%;
@@ -36,7 +36,7 @@ const CartStyle = styled.div`
         min-width: 100vw;
         grid-template-rows: auto 1fr;
 
-    ul {
+        ul {
             max-height: 48vh;
             margin-top: 30vh;
             padding: 0;
