@@ -30,7 +30,7 @@ const CheckoutButton = styled.button`
      async function handleSubmit(e) {
          e.preventDefault()
          setLoading(true)
-         console.log('We gotta do some work..')
+         console.log('And so it begins..')
          nProgress.start()
          const { error, paymentMethod } = await stripe.createPaymentMethod({
              type: 'card',
