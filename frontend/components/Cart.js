@@ -30,7 +30,7 @@ const CartStyle = styled.div`
     }
     .para {
         margin-left: 3rem;
-        font-size: 5rem;
+        font-size: 2.5rem;
     }
     @media (max-width: 425px) {
         min-width: 100vw;
@@ -41,7 +41,6 @@ const CartStyle = styled.div`
             margin-top: 30vh;
             padding: 0;
             min-width: 60vw;
-            box-shadow: none !important;
         }
     }
 `
@@ -68,7 +67,7 @@ function totalPrice(cart) {
         return tally + cartItem.quantity * cartItem.product.price
     }, 0)
 }
-export default function Cart() {
+export default function Cart({cartItem}) {
   const cartStuff = useUser()
   const {cartOpen, toggleCart} = useCart()
   if (!cartStuff) return null

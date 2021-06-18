@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
-import { CURRENT_USER_QUERY } from './User'
+
 
 const REMOVE_FROM_CART_MUTATION = gql`
     mutation REMOVE_FROM_CART_MUTATION($id: ID!) {
@@ -26,7 +26,6 @@ export default function RemoveFromCart({ id }) {
         REMOVE_FROM_CART_MUTATION,
         {
             variables: { id },
-          /* refetchQueries: [{ query: CURRENT_USER_QUERY }], */
            update: evict,
         }
     )
@@ -35,6 +34,7 @@ export default function RemoveFromCart({ id }) {
             onClick={removeFromCart}
             disabled={loading}
             type='button'
+            title='Remove This Item from Cart'
         >
             X
         </RemoveButtonStyle>

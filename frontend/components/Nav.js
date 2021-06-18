@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 import { useCart } from '../lib/cartState'
+import CartCount from './CartCount'
 import SingOut from './SignOut'
 import { useUser } from './User'
 
@@ -29,15 +30,6 @@ const NavStyle = styled.ul`
     }
     }
     
-  /*   &:hover,
-    &:focus {
-        outline: none;
-        &:after {
-            width: calc(100% - 60px);
-        }
-        @media (max-width: 700px) {
-            width: calc(100% - 10px);
-        } */
     @media (max-width: 1300px) {
         width: 100%;
         justify-content: center;
@@ -48,7 +40,7 @@ const NavStyle = styled.ul`
 export default function Nav() {
     const user = useUser()
     const {toggleCart} = useCart()
-    console.log(user)
+    
     return (
         <NavStyle>
             <Link href='/products'>Products</Link>
@@ -58,7 +50,9 @@ export default function Nav() {
                     <Link href='/orders'>Orders</Link>
                     <Link href='/account '>Account</Link>
                     <SingOut />
-                    <button onClick={toggleCart}>My cart</button>
+                    <button onClick={toggleCart}>My cart
+                        <CartCount count={user.cart.reduce((tally, cartItem) => 
+                        tally + cartItem.quantity, 0 )}></CartCount></button>
                 </>
             )}
             {!user && <Link href='/signin'>Singin</Link>}
