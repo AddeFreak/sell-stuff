@@ -1,5 +1,7 @@
+import { useMutation } from '@apollo/client'
 import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import gql from 'graphql-tag'
 import nProgress from 'nprogress'
 import { useState } from 'react'
 import styled from 'styled-components'
@@ -20,6 +22,20 @@ const CheckoutButton = styled.button`
     color: white;
     background-color: rgb(9, 0, 124);
     `
+const CREATE_ORDER_MUTATION = gql`
+    mutation CREATE_ORDER_MUTATION($token: String!) {
+        checkout(token: $token) {
+            id
+            charge
+            total
+            items {
+                id
+                name
+            }
+        }
+    }
+`
+
  const stripeLib = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)
 
  function CheckoutForm() {
@@ -27,6 +43,7 @@ const CheckoutButton = styled.button`
      const [loading, setLoading] = useState(false)
      const stripe = useStripe()
      const elements = useElements()
+     const [checkout, { error: graphQLError }] = useMutation(CREATE_ORDER_MUTATION)
      async function handleSubmit(e) {
          e.preventDefault()
          setLoading(true)
@@ -39,8 +56,18 @@ const CheckoutButton = styled.button`
          console.log(paymentMethod)
          if (error) {
              setError(error)
+             nProgress.done()
+             return
          }
-         
+
+         const order = await checkout({
+             variables: {
+                 token: paymentMethod.id
+             }
+         })
+         console.log('Finished order')
+         console.log(order)
+
          setLoading(false)
          nProgress.done()
      }
@@ -48,6 +75,7 @@ const CheckoutButton = styled.button`
      return (
          <CheckoutFormStyles onSubmit={handleSubmit}>
              {error && <p style={{ fontSize: 12 }}>{error.message}</p>}
+             {graphQLError && <p style={{ fontSize: 12 }}>{graphQLError.message}</p>}
              <CardElement />
              <CheckoutButton>Check Out Now</CheckoutButton>
          </CheckoutFormStyles>
