@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 import Router from 'next/router'
 import styled from 'styled-components'
 import useForm from '../lib/useForm'
+import ErrorMessage from './ErrorMessage'
 import { ALL_PRODUCTS_QUERY } from './Products'
 
 const FormStyle = styled.form`
@@ -87,7 +88,6 @@ export default function CreateProduct() {
         }
     )
 
-    if (error) return <p>Error: {error.message}</p>
     return (
         <FormStyle
             onSubmit={async (e) => {
@@ -100,8 +100,7 @@ export default function CreateProduct() {
                 })
             }}
         >
-            {/* //Disable fieldset when uploading (aria-busy) 
-            DisplayError*/}
+            <ErrorMessage error={error}/>
             <fieldset disabled={loading}>
                 <div className='formcontainer'>
                     <div className='container'>
