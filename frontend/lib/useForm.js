@@ -18,10 +18,7 @@ export default function useForm(initialState = {}) {
         }
         setFormData({ ...formData, [name]: value })
     }
-    /*   const handleSubmit = (e) => {
-      e.preventDefault()
-      onSubmit.console.log(formData)
-  } */
+    
     const resetForm = () => {
         setFormData(initialState)
     }

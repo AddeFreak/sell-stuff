@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client'
 import gql from 'graphql-tag'
 import Head from 'next/head'
 import styled from 'styled-components'
+import ErrorMessage from './ErrorMessage'
 
 const ProductStyle = styled.div`
     display: grid;
@@ -38,7 +39,7 @@ export default function SingleProduct({ id }) {
       }
     })
     if (loading) return <p>Loading...</p>
-    if (error) return <p>Error: {error.message}</p>
+    if (error) return <ErrorMessage error={error}/>
     return (
         <ProductStyle>
             <Head>

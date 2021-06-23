@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 import Router from 'next/router'
 import styled from 'styled-components'
 import useForm from '../lib/useForm'
+import ErrorMessage from './ErrorMessage'
 
 import { SINGLE_PRODUCT_QUERY } from './SingleProduct'
 
@@ -42,12 +43,7 @@ const FormStyle = styled.form`
     fieldset {
         border: none;
     }
-    /* @media screen and (max-width: 300px) {
-        span.psw {
-            display: block;
-            float: none;
-        } 
-    }*/
+  
 `
 
 const UPDATE_PRODUCT_MUTATION = gql`
@@ -87,7 +83,7 @@ export default function UpdateProduct({ id }) {
     )
 
     if (loading) return <p>Loading...</p>
-    if (error) return <p>{error.message}</p>
+    
     return (
         <FormStyle
             onSubmit={async (e) => {
@@ -98,8 +94,7 @@ export default function UpdateProduct({ id }) {
                 })
             }}
         >
-            {/* //Disable fieldset when uploading (aria-busy) 
-            DisplayError*/}
+            <ErrorMessage error={error || mutationResponse.error}/>
             <fieldset disabled={mutationResponse.loading}>
                 <div className='formcontainer'>
                     <div className='container'>
