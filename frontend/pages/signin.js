@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import ResetPassword from "../components/ResetPassword";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 
@@ -11,7 +12,8 @@ export default function SignInPage() {
   return (
     <StyledSignPage>
       <SignIn/>
-      <SignUp/>
+      <SignUp />
+      <ResetPassword/>
     </StyledSignPage>
   );
 }
