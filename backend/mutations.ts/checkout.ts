@@ -1,4 +1,3 @@
-import { withItemData } from '@keystone-next/keystone/session';
 import {
 	OrderCreateInput,
 	CartItemCreateInput,
@@ -62,6 +61,31 @@ async function checkout(
 			console.log(err);
 			throw new Error(err.message);
 		});
+	console.log(charge);
+
+	const orderItems = cartItems.map((cartItem) => {
+		const orderItem = {
+			name: cartItem.product.name,
+			description: cartItem.product.description,
+			price: cartItem.product.price,
+			quantity: cartItem.quantity,
+			picture: { connect: { id: cartItem.product.picture.id } },
+		};
+		return orderItem;
+	});
+	const order = await context.lists.Order.createOne({
+		data: {
+			total: charge.amount,
+			charge: charge.id,
+			items: { create: orderItems },
+			user: { connect: { id: userId } },
+		},
+	});
+	const cartItemIds = user.cart.map((cartItem) => cartItem.id);
+	await context.lists.CartItem.deleteMany({
+		ids: cartItemIds,
+	});
+	return order;
 }
 
 export default checkout;
