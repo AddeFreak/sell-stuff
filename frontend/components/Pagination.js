@@ -29,7 +29,7 @@ const PaginationStyles = styled.div`
         pointer-events: none;
     }
 `
-const PAGINATION_QUERY = gql`
+export const PAGINATION_QUERY = gql`
 query {
   _allProductsMeta {
     count

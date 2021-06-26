@@ -4,6 +4,7 @@ import { ApolloClient, ApolloLink, InMemoryCache } from '@apollo/client';
 import { createUploadLink } from 'apollo-upload-client';
 import { getDataFromTree } from '@apollo/client/react/ssr'
 import { onError } from '@apollo/link-error';
+import paginationField from './paginationField';
 
 function createClient({ initialState, headers }){
     return new ApolloClient({connectToDevTools: true,
@@ -29,6 +30,7 @@ createUploadLink({
         typePolicies: {
           Query: {
             fields: {
+              allProducts: paginationField(),
         
       }
     }
