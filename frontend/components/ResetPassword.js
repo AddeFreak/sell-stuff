@@ -1,18 +1,25 @@
-import { useMutation } from "@apollo/client";
-import  gql  from "graphql-tag";
-import styled from "styled-components";
-import useForm from "../lib/useForm";
-import ErrorMessage from "./ErrorMessage";
+import { useMutation } from '@apollo/client'
+import gql from 'graphql-tag'
+import styled from 'styled-components'
+import useForm from '../lib/useForm'
+import ErrorMessage from './ErrorMessage'
 
-
-const REQUEST_RESET_MUTATION = gql`
-  mutation REQUEST_RESET_MUTATION($email: String!) {
-    sendUserPasswordResetLink(email: $email){
-     code
-     message
+const RESET_PASSWORD_MUTATION = gql`
+    mutation RESET_PASSWORD_MUTATION(
+        $email: String!
+        $password: String!
+        $token: String!
+    ) {
+        redeemUserPasswordResetToken(
+            email: $email
+            token: $token
+            password: $password
+        ) {
+            code
+            message
+        }
     }
-  }
-`;
+`
 
 const FormStyle = styled.form`
     display: flex;
@@ -51,44 +58,60 @@ const FormStyle = styled.form`
         border: none;
     }
 `
-export default function ResetPassword() {
-  const { formData, handleInputChange, resetForm } = useForm({
-    email: '',
-  })
-  const [signup, { data, error, loading }] = useMutation(REQUEST_RESET_MUTATION, {
-    variables: formData,
-  })
-  return (
-      <FormStyle
-          method='POST'
-          onSubmit={async (e) => {
-              e.preventDefault()
-              const res = await signup()
-              console.log(res)
-              resetForm()
-          }}
-    >
-      <ErrorMessage error={error}/>
-          <fieldset>
-        <h2>Request a Password Reset</h2>
-        {data?.sendUserPasswordResetLink === null && (
-          <p> Success! A link has been sent yo your email!</p>
-        )}
-             
-              <label htmlFor='email'>
-                  Your Email
-                  <input
-                      type='email'
-                      name='email'
-                      placeholder='Your email address'
-                      autoComplete='email'
-                      value={formData.email}
-                      onChange={handleInputChange}
-                  />
-              </label>
-             
-              <button type='submit'> Reset Password</button>
-          </fieldset>
-      </FormStyle>
-  )
- }
+export default function ResetPassword({token}) {
+    const { formData, handleInputChange, resetForm } = useForm({
+        email: '',
+        password: '',
+        token: token,
+    })
+    const [reset, { data, loading, error }] = useMutation(
+        RESET_PASSWORD_MUTATION,{
+            variables: formData,
+    })
+  const successfulError = data?.redeemUserPasswordResetToken?.code ?
+    data?.redeemUserPasswordResetToken : undefined;
+  console.log(error)
+    return (
+        <FormStyle
+            method='POST'
+            onSubmit={async (e) => {
+                e.preventDefault()
+                const res = await reset()
+                console.log(res)
+                resetForm()
+            }}
+        >
+            <ErrorMessage error={error || successfulError} />
+            <fieldset>
+                <h2>Reset Your Password</h2>
+                {data?.redeemUserPasswordResetToken === null && (
+                    <p> Success!</p>
+                )}
+
+                <label htmlFor='email'>
+                    Your Email
+                    <input
+                        type='email'
+                        name='email'
+                        placeholder='Your email address'
+                        autoComplete='email'
+                        value={formData.email}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <label htmlFor='password'>
+                    Password
+                    <input
+                        type='password'
+                        name='password'
+                        placeholder='Password'
+                        autoComplete='password'
+                        value={formData.password}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <button type='submit'> Reset Password</button>
+            </fieldset>
+        </FormStyle>
+    )
+}

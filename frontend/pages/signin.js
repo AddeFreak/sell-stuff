@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ResetPassword from "../components/ResetPassword";
+import ResetPassword from "../components/RequestReset";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 

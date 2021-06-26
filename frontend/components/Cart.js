@@ -46,6 +46,7 @@ const CartStyle = styled.div`
 `
 const CartNameStyle = styled.h3`
     background-color: rgb(9, 0, 124);
+    border-radius: 3px;
     color: white;
     padding: 2rem;
     margin: 1rem;
@@ -54,12 +55,13 @@ const CartNameStyle = styled.h3`
     font-weight: 400;
 `
 const CloseButtonStyle = styled.button`
-   border: none;
-        display: inline-block;
-        position: absolute;
-        background-color: pink;
-        top: 2rem;
-        right: 3rem;
+    border: none;
+    display: inline-block;
+    position: absolute;
+    background-color: pink;
+    border-radius: 3px;
+    top: 2rem;
+    right: 3rem;
 `
 function totalPrice(cart) {
     return cart.reduce((tally, cartItem) => {
