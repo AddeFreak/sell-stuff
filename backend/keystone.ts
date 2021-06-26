@@ -12,6 +12,7 @@ import {
 	withItemData,
 } from '@keystone-next/keystone/session';
 import { extendGraphqlSchema } from './mutations.ts';
+import { sendPasswordResetEmail } from './.keystone/lib/mail';
 
 const databaseURL =
 	process.env.DATABASE_URL || 'mongodb://localhost/sell-stuff';
@@ -25,7 +26,7 @@ const { withAuth } = createAuth({
 	},
 	passwordResetLink: {
 		async sendToken(args) {
-			console.log(args);
+			await sendPasswordResetEmail(args.token, args.identity);
 		},
 	},
 });

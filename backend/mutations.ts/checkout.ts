@@ -12,7 +12,7 @@ async function checkout(
 ): Promise<OrderCreateInput> {
 	const userId = context.session.itemId;
 	if (!userId) {
-		throw new Error('Ypu must be signed in to create an order.');
+		throw new Error('You must be signed in to create an order.');
 	}
 	const user = await context.lists.User.findOne({
 		where: { id: userId },
