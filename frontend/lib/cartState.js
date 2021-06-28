@@ -10,9 +10,22 @@ function CartStateProvider({ children }) {
   function toggleCart() {
     setCartOpen(!cartOpen)
   }
+  function closeCart() {
+      setCartOpen(false)
+  }
+
+  function openCart() {
+      setCartOpen(true)
+  }
 
   return (
-      <CartStateContext.Provider value={{ cartOpen, setCartOpen, toggleCart }}>
+    <CartStateContext.Provider value={{
+      cartOpen,
+      setCartOpen,
+      toggleCart,
+      closeCart,
+      openCart
+    }}>
           {children}
       </CartStateContext.Provider>
   )
