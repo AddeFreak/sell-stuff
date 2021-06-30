@@ -1,26 +1,28 @@
-import { useMutation } from "@apollo/client";
-import  gql  from "graphql-tag";
-import styled from "styled-components";
-import useForm from "../lib/useForm";
-import { CURRENT_USER_QUERY } from "./User";
+import { useMutation } from '@apollo/client'
+import gql from 'graphql-tag'
+import Router from 'next/router'
+import styled from 'styled-components'
+import useForm from '../lib/useForm'
+import ErrorMessage from './ErrorMessage'
+import { CURRENT_USER_QUERY } from './User'
 
 const SIGNIN_MUTATION = gql`
-  mutation SIGNIN_MUTATION($email: String!, $password: String!) {
-    authenticateUserWithPassword(email: $email, password: $password) {
-      ... on UserAuthenticationWithPasswordSuccess {
-        item {
-          id
-          email
-          name
+    mutation SIGNIN_MUTATION($email: String!, $password: String!) {
+        authenticateUserWithPassword(email: $email, password: $password) {
+            ... on UserAuthenticationWithPasswordSuccess {
+                item {
+                    id
+                    email
+                    name
+                }
+            }
+            ... on UserAuthenticationWithPasswordFailure {
+                code
+                message
+            }
         }
-      }
-      ... on UserAuthenticationWithPasswordFailure {
-        code
-        message
-      }
     }
-  }
-`;
+`
 
 const FormStyle = styled.form`
     display: flex;
@@ -66,47 +68,53 @@ const FormStyle = styled.form`
     }
 `
 export default function SignIn() {
-  const { formData, handleInputChange, resetForm } = useForm({
-    email: '',
-    password:''
-  })
-  const [singin, { error, loading }] = useMutation(SIGNIN_MUTATION, {
-    variables: formData,
-    refetchQueries: [{query: CURRENT_USER_QUERY}]
-  })
-  return (
-    <FormStyle method="POST" onSubmit={async (e) => {
-      e.preventDefault()
-      const res = await singin()
-      console.log(res)
-      resetForm()
-      }}>
-      <fieldset>
-        <h2>Sign In To Your Account</h2>
-              <label htmlFor='email'>
-                  Email
-                  <input
-                      type='email'
-                      name='email'
-                      placeholder='Your email address'
-            autoComplete='email'
-            value={formData.email}
-            onChange={handleInputChange}
-                  />
-              </label>
-              <label htmlFor='password'>
-                  Password
-                  <input
-                      type='password'
-                      name='password'
-                      placeholder='Password'
-                      autoComplete='password'
-                      value={formData.password}
-                      onChange={handleInputChange}
-                  />
-              </label>
-              <button type='submit'> Sign In! </button>
-          </fieldset>
-      </FormStyle>
-  )
- }
+    const { formData, handleInputChange, resetForm } = useForm({
+        email: '',
+        password: '',
+    })
+    const [singin, { error, loading }] = useMutation(SIGNIN_MUTATION, {
+        variables: formData,
+        refetchQueries: [{ query: CURRENT_USER_QUERY }],
+    })
+    return (
+        <FormStyle
+            method='POST'
+            onSubmit={async (e) => {
+                e.preventDefault()
+                const res = await singin()
+                console.log(res)
+                Router.push({
+                    pathname: `/products/`,
+                })
+            }}
+        >
+            <ErrorMessage error={error} />
+            <fieldset>
+                <h2>Sign In To Your Account</h2>
+                <label htmlFor='email'>
+                    Email
+                    <input
+                        type='email'
+                        name='email'
+                        placeholder='Your email address'
+                        autoComplete='email'
+                        value={formData.email}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <label htmlFor='password'>
+                    Password
+                    <input
+                        type='password'
+                        name='password'
+                        placeholder='Password'
+                        autoComplete='password'
+                        value={formData.password}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <button type='submit'> Sign In! </button>
+            </fieldset>
+        </FormStyle>
+    )
+}
