@@ -1,7 +1,9 @@
+import { permissionsList } from './schemas/fields';
+import { Role } from './schemas/Role';
 import { OrderItem } from './schemas/OrderItem';
 import { CartItem } from './schemas/CartItem';
 import { ProductImage } from './schemas/ProductImage';
-import { Product } from './schemas/Products';
+import { Product } from './schemas/Product';
 import { User } from './schemas/User';
 import { Order } from './schemas/Order';
 import { createAuth } from '@keystone-next/auth';
@@ -49,6 +51,7 @@ export default withAuth(
 			CartItem,
 			OrderItem,
 			Order,
+			Role,
 		}),
 		extendGraphqlSchema: extendGraphqlSchema,
 		ui: {
@@ -61,7 +64,7 @@ export default withAuth(
 				secret: process.env.COOKIE_SECRET,
 				maxAge: 60 * 60 * 24 * 364,
 			}),
-			{ User: `id name email` }
+			{ User: `id name email role { ${permissionsList.join(' ')}}` }
 		),
 	})
 );

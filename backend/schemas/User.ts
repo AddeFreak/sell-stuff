@@ -18,5 +18,8 @@ export const User = list({
 			many: true,
 		}),
 		orders: relationship({ ref: 'Order.user', many: true }),
+		role: relationship({
+			ref: 'Role.assignedTo',
+		}),
 	},
 });
