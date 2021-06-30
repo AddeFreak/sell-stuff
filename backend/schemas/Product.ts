@@ -1,3 +1,4 @@
+import { rules } from './../access';
 import { ProductImage } from './ProductImage';
 import { integer, select, text, relationship } from '@keystone-next/fields';
 import { list } from '@keystone-next/keystone/schema';
@@ -6,9 +7,9 @@ import { isSignedIn } from '../access';
 export const Product = list({
 	access: {
 		create: isSignedIn,
-		read: isSignedIn,
-		update: isSignedIn,
-		delete: isSignedIn,
+		read: rules.canReadProducts,
+		update: rules.canManageProducts,
+		delete: rules.canManageProducts,
 	},
 	fields: {
 		name: text({ isRequired: true }),

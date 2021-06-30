@@ -14,10 +14,53 @@ const generatedPermissions = Object.fromEntries(
 	])
 );
 export const permissions = {
+	...generatedPermissions,
+};
+
+export const rules = {
 	canManageProducts({ session }) {
-		return session?.data.role?.canManageProducts;
+		if (!isSignedIn({ session })) {
+			return false;
+		}
+		if (permissions.canManageProducts({ session })) {
+			return true;
+		}
+		return { user: { id: session.itemId } };
 	},
-	canSeeOtherUsers({ session }) {
-		return session?.data.role?.canManageProducts;
+	canOrder({ session }) {
+		if (!isSignedIn({ session })) {
+			return false;
+		}
+		if (permissions.canManageCart({ session })) {
+			return true;
+		}
+		return { user: { id: session.itemId } };
+	},
+	canManageOrderItems({ session }) {
+		if (!isSignedIn({ session })) {
+			return false;
+		}
+		if (permissions.canManageCart({ session })) {
+			return true;
+		}
+		return { order: { user: { id: session.itemId } } };
+	},
+	canReadProducts({ session }) {
+		if (!isSignedIn({ session })) {
+			return false;
+		}
+		if (permissions.canManageProducts({ session })) {
+			return true;
+		}
+		return { status: 'AVAILABLE' };
+	},
+	canManageUsers({ session }) {
+		if (!isSignedIn({ session })) {
+			return false;
+		}
+		if (permissions.canManageUsers({ session })) {
+			return true;
+		}
+		return { id: session.itemId };
 	},
 };
