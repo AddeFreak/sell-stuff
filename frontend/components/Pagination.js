@@ -31,16 +31,21 @@ const PaginationStyles = styled.div`
         color: grey;
         pointer-events: none;
     }
-    @media (max-width: 700px) {
+    @media (max-width: 320px) {
         font-size: 10px;
         padding: 0 10px;
-        
+        border: none;
+    }
+    @media (max-width: 700px) {
+        font-size: 10px;
+        padding: 0;
     }
 `
 const CenterDiv = styled.div`
     display: flex;
-    align-items: center !important;
-    justify-content: center !important;
+    align-items: center; 
+    justify-content: center; 
+    
 `
 export const PAGINATION_QUERY = gql`
 query {

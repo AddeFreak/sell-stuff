@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Nav from './Nav'
 import Cart from './Cart'
 import { useState } from 'react'
+import { useCart } from '../lib/cartState'
 
 const Logo = styled.h1`
     margin-left: 2rem;
@@ -50,65 +51,70 @@ const StyledHeader = styled.header`
     }
 `
 const MenuLabel = styled.label`
-    background-color: #b6edc8;
-    position: fixed;
-    top: 1.5rem;
-    right: 2.5rem;
-    border-radius: 50%;
-    height: 7rem;
-    width: 7rem;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 1rem 3rem rgba(182, 237, 200, 0.3);
-    text-align: center;
+    @media (max-width: 425px) {
+        background-color: #b6edc8;
+        position: fixed;
+        top: 1.5rem;
+        right: 1.5rem;
+        border-radius: 50%;
+        height: 7rem;
+        width: 7rem;
+        cursor: pointer;
+        z-index: 9;
+        box-shadow: 0 1rem 3rem rgba(182, 237, 200, 0.3);
+        text-align: center;
+    }
 `
 const Icon = styled.span`
-    position: relative;
-    background-color: ${(props) => (props.clicked ? 'transparent' : 'black')};
-    width: 3rem;
-    height: 2px;
-    display: inline-block;
-    margin-top: 3.5rem;
-    transition: all 0.3s;
-    &::before,
-    &::after {
-        content: '';
-        background-color: black;
+    @media (max-width: 425px) {
+        position: relative;
+        background-color: ${(props) =>
+            props.clicked ? 'transparent' : 'black'};
         width: 3rem;
         height: 2px;
         display: inline-block;
-        position: absolute;
-        left: 0;
+        margin-top: 3.5rem;
         transition: all 0.3s;
+        &::before,
+        &::after {
+            content: '';
+            background-color: black;
+            width: 3rem;
+            height: 2px;
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            transition: all 0.3s;
+        }
+        &::before {
+            top: ${(props) => (props.clicked ? '0' : '-0.8rem')};
+            transform: ${(props) =>
+                props.clicked ? 'rotate(135deg)' : 'rotate(0)'};
+        }
+        &::after {
+            top: ${(props) => (props.clicked ? '0' : '0.8rem')};
+            transform: ${(props) =>
+                props.clicked ? 'rotate(-135deg)' : 'rotate(0)'};
+        }
     }
-    &::before {
-        top: ${(props) => (props.clicked ? '0' : '-0.8rem')};
-        transform: ${(props) =>
-            props.clicked ? 'rotate(135deg)' : 'rotate(0)'};
-    }
-    &::after {
-        top: ${(props) => (props.clicked ? '0' : '0.8rem')};
-        transform: ${(props) =>
-            props.clicked ? 'rotate(-135deg)' : 'rotate(0)'};
-    }
-   
 `
 export default function Header() {
-   const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
     const toggle = () => setIsOpen(!isOpen)
-    
-    
+    const { cartOpen, toggleCart } = useCart()
     return (
-        <StyledHeader open={isOpen} >
+        <StyledHeader open={isOpen}>
             <div className='navbar'>
                 <Logo>
                     <Link href='/'>SELL STUFF</Link>
                 </Logo>
                 <Nav />
             </div>
-            <MenuLabel onClick={toggle} >
+            {!cartOpen && (
+                 <MenuLabel onClick={toggle}>
                 <Icon clicked={isOpen}>&nbsp;</Icon>
             </MenuLabel>
+            )}
             <div className='subnav'>
                 <p></p>
             </div>

@@ -62,6 +62,19 @@ const CloseButtonStyle = styled.button`
     border-radius: 3px;
     top: 2rem;
     right: 3rem;
+    /* @media (max-width: 768px) {
+        background-color: white;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        border-radius: 50%;
+        height: 7rem;
+        width: 7rem;
+        cursor: pointer;
+        z-index: 11;
+        box-shadow: 0 1rem 3rem rgba(182, 237, 200, 0.3);
+        text-align: center;
+    } */
 `
 function totalPrice(cart) {
     return cart.reduce((tally, cartItem) => {
@@ -69,21 +82,21 @@ function totalPrice(cart) {
         return tally + cartItem.quantity * cartItem.product.price
     }, 0)
 }
-export default function Cart({cartItem}) {
+export default function Cart({ cartItem }) {
   const cartStuff = useUser()
   const {cartOpen, toggleCart} = useCart()
   if (!cartStuff) return null
-  console.log(cartStuff)
+  
   
   return (
       <CartStyle open={cartOpen}>
           <CartNameStyle>
               {cartStuff.name}'s Cart
-              <div className='buttisch'>
+              
                   <CloseButtonStyle type='button' onClick={toggleCart}>
                       X
                   </CloseButtonStyle>
-              </div>
+             
           </CartNameStyle>
 
           <ul className="cartlist">

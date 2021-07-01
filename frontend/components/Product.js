@@ -38,7 +38,6 @@ const ProductStyles = styled.div`
         a {
             color: black;
         }
-
         text-align: center;
         text-decoration: none;
         min-width: 20%;
@@ -53,8 +52,11 @@ const ProductStyles = styled.div`
         @media (max-width: 425px) {
             font-size: 10px;
             width: 100%;
-            
-            
+        }
+        @media (max-width: 768px) {
+            font-size: 10px;
+            text-align: center;
+            width: 100%;
         }
     }
     .delete {
@@ -71,8 +73,11 @@ const ProductStyles = styled.div`
         @media (max-width: 425px) {
             font-size: 10px;
             width: 100%;
-            
-            
+        }
+        @media (max-width: 768px) {
+            font-size: 10px;
+            text-align: center;
+            width: 100%;
         }
     }
     .add {
@@ -86,20 +91,16 @@ const ProductStyles = styled.div`
             border: 0;
             font-size: 1rem;
         }
-        @media (max-width: 700px) {
-            font-size: 10px;
-            padding: 0 10px;
-        }
         @media (max-width: 425px) {
             font-size: 10px;
             text-align: center;
             width: 100%;
-            display: grid;
-            grid-template-rows: repeat(3, 1fr);
         }
-           
-            
-            
+        @media (max-width: 768px) {
+            font-size: 10px;
+            text-align: center;
+            width: 100%;
+        }
     }
 `
 const ProductTextStyle = styled.h2`
@@ -128,6 +129,15 @@ const ProductTextStyle = styled.h2`
         display: flex;
         font-size: 1rem;
         bottom: 20rem;
+        a {
+            text-align: center;
+        }
+    }
+    @media (max-width: 768px) {
+        font-size: 2rem;
+        display: flex;
+        font-size: 1rem;
+        bottom: 19rem;
         a {
             text-align: center;
         }
