@@ -24,10 +24,23 @@ const PaginationStyles = styled.div`
             border-right: 0;
         }
     }
+    a {
+        color: black;
+    }
     a[aria-disabled='true'] {
         color: grey;
         pointer-events: none;
     }
+    @media (max-width: 700px) {
+        font-size: 10px;
+        padding: 0 10px;
+        
+    }
+`
+const CenterDiv = styled.div`
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
 `
 export const PAGINATION_QUERY = gql`
 query {
@@ -42,22 +55,23 @@ export default function Pagination({ page }) {
   if (error) return <ErrorMessage error={error} />;
   const { count } = data._allProductsMeta;
   const pageCount = Math.ceil(count / perPage);
-  return (
-      <PaginationStyles>
-          <Head>
-              <title>Sell Stuff - Page {page} of </title>
-          </Head>
-          <Link href={`/products/${page - 1}`}>
-              <a aria-disabled={page <= 1}>
-                  ← Prev
-              </a>
-          </Link>
-          <p>
-              Page {page} of {pageCount}
-          </p>
-          <p>{count} Items Total</p>
-      <Link href={`/products/${ page + 1 }`}>
-        <a aria-disabled={page >= pageCount}>Next →</a></Link>
-      </PaginationStyles>
-  )
+    return (
+        <CenterDiv>
+            <PaginationStyles>
+                <Head>
+                    <title>Sell Stuff - Page {page} of </title>
+                </Head>
+                <Link href={`/products/${page - 1}`}>
+                    <a aria-disabled={page <= 1}>← Prev</a>
+                </Link>
+                <p>
+                    Page {page} of {pageCount}
+                </p>
+                <p>{count} Items Total</p>
+                <Link href={`/products/${page + 1}`}>
+                    <a aria-disabled={page >= pageCount}>Next →</a>
+                </Link>
+            </PaginationStyles>
+        </CenterDiv>
+    )
 }

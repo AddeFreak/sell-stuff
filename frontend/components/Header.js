@@ -39,33 +39,6 @@ const StyledHeader = styled.header`
         .cartlist {
             transform: translateX(50%);
         }
-        .hamburger {
-            right: 2rem;
-            top: 2.5rem;
-            /* transform: translate(-50%, -50%); */
-            position: absolute;
-            width: 50px;
-        }
-        .hamburger:before,
-        .hamburger:after,
-        .hamburger div {
-            background: rgb(9, 0, 124);
-            content: '';
-            display: block;
-            height: 6px;
-            border-radius: 3px;
-            margin: 7px 0;
-            transition: 0.5s;
-        }
-         .hamburger:hover:before {
-            transform: translateY(12px) rotate(135deg);
-        }
-        .hamburger:hover:after {
-            transform: translateY(-12px) rotate(-135deg);
-        }
-        .hamburger:hover div {
-            transform: scale(0);
-        } 
     }
     .subnav {
         display: grid;
@@ -76,22 +49,66 @@ const StyledHeader = styled.header`
         }
     }
 `
-
+const MenuLabel = styled.label`
+    background-color: #b6edc8;
+    position: fixed;
+    top: 1.5rem;
+    right: 2.5rem;
+    border-radius: 50%;
+    height: 7rem;
+    width: 7rem;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 1rem 3rem rgba(182, 237, 200, 0.3);
+    text-align: center;
+`
+const Icon = styled.span`
+    position: relative;
+    background-color: ${(props) => (props.clicked ? 'transparent' : 'black')};
+    width: 3rem;
+    height: 2px;
+    display: inline-block;
+    margin-top: 3.5rem;
+    transition: all 0.3s;
+    &::before,
+    &::after {
+        content: '';
+        background-color: black;
+        width: 3rem;
+        height: 2px;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        transition: all 0.3s;
+    }
+    &::before {
+        top: ${(props) => (props.clicked ? '0' : '-0.8rem')};
+        transform: ${(props) =>
+            props.clicked ? 'rotate(135deg)' : 'rotate(0)'};
+    }
+    &::after {
+        top: ${(props) => (props.clicked ? '0' : '0.8rem')};
+        transform: ${(props) =>
+            props.clicked ? 'rotate(-135deg)' : 'rotate(0)'};
+    }
+   
+`
 export default function Header() {
    const [isOpen, setIsOpen] = useState(false)
-   const toggle = () => setIsOpen(!isOpen)
+    const toggle = () => setIsOpen(!isOpen)
+    
     
     return (
-        <StyledHeader open={isOpen}>
+        <StyledHeader open={isOpen} >
             <div className='navbar'>
                 <Logo>
                     <Link href='/'>SELL STUFF</Link>
                 </Logo>
                 <Nav />
             </div>
-            <div onClick={toggle} className='hamburger'>
-                <div onClick={toggle}></div>
-            </div>
+            <MenuLabel onClick={toggle} >
+                <Icon clicked={isOpen}>&nbsp;</Icon>
+            </MenuLabel>
             <div className='subnav'>
                 <p></p>
             </div>
