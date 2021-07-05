@@ -24,18 +24,18 @@ const NavStyle = styled.ul`
         border: 0;
         cursor: pointer;
         color: rgb(9, 0, 124);
+        padding: 1rem 3rem;
         @media (max-width: 1000px) {
-        font-size: 10px;
-        padding: 0 10px;
+            font-size: 15px;
+            padding: 0 10px;
+        }
     }
-    }
-    
+
     @media (max-width: 1300px) {
         width: 100%;
         justify-content: center;
         font-size: 1.5rem;
     }
-    
 `
 export default function Nav() {
     const user = useUser()

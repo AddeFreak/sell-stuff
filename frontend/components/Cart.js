@@ -62,7 +62,7 @@ const CloseButtonStyle = styled.button`
     border-radius: 3px;
     top: 2rem;
     right: 3rem;
-    /* @media (max-width: 768px) {
+   /*  @media (max-width: 768px) {
         background-color: white;
         position: absolute;
         top: 1.5rem;

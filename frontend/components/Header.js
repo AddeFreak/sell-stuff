@@ -4,6 +4,7 @@ import Nav from './Nav'
 import Cart from './Cart'
 import { useState } from 'react'
 import { useCart } from '../lib/cartState'
+import Search from './Search'
 
 const Logo = styled.h1`
     margin-left: 2rem;
@@ -42,15 +43,16 @@ const StyledHeader = styled.header`
         }
     }
     .subnav {
-        display: grid;
+        /* display: grid;
         grid-template-columns: auto 1fr;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid black; */
         p {
             margin-left: 1rem;
         }
     }
 `
 const MenuLabel = styled.label`
+
     @media (max-width: 425px) {
         background-color: #b6edc8;
         position: fixed;
@@ -63,6 +65,9 @@ const MenuLabel = styled.label`
         z-index: 9;
         box-shadow: 0 1rem 3rem rgba(182, 237, 200, 0.3);
         text-align: center;
+    }
+    @media (min-width: 768px) {
+        display: none;
     }
 `
 const Icon = styled.span`
@@ -110,14 +115,15 @@ export default function Header() {
                 </Logo>
                 <Nav />
             </div>
+            <div className='subnav'>
+                <Search></Search>
+            </div>
             {!cartOpen && (
                  <MenuLabel onClick={toggle}>
                 <Icon clicked={isOpen}>&nbsp;</Icon>
             </MenuLabel>
             )}
-            <div className='subnav'>
-                <p></p>
-            </div>
+            
             <Cart />
         </StyledHeader>
     )

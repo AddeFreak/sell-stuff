@@ -1,0 +1,1 @@
+{"ast":null,"code":"export { default } from './index';","map":{"version":3,"sources":["/Users/andreasfricktoresand/Documents/frontend/Examensarbete/sell-stuff/frontend/pages/products/[page].js"],"names":["default"],"mappings":"AAAA,SAASA,OAAT,QAAwB,SAAxB","sourcesContent":["export { default } from './index'"]},"metadata":{},"sourceType":"module"}
