@@ -39,13 +39,15 @@ const CartStyle = styled.div`
         .cartlist {
             position: relative;
             margin-top: 15px;
+            min-height: 50vh;
+            min-width: 80vw;
+            left: -90px;
         }
         ul {
-           
-            max-height: 48vh;
           
+
             padding: 0;
-            min-width: 60vw;
+            
         }
     }
 `
