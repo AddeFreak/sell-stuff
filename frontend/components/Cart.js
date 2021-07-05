@@ -34,11 +34,16 @@ const CartStyle = styled.div`
     }
     @media (max-width: 425px) {
         min-width: 100vw;
-        grid-template-rows: auto 1fr;
 
+        grid-template-rows: auto 1fr;
+        .cartlist {
+            position: relative;
+            margin-top: 15px;
+        }
         ul {
+           
             max-height: 48vh;
-            margin-top: 30vh;
+          
             padding: 0;
             min-width: 60vw;
         }
