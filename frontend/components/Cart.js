@@ -1,9 +1,9 @@
-import styled from "styled-components"
-import { useCart } from "../lib/cartState"
-import moneyFormat from "../lib/moneyFormat"
-import CartItem from "./CartItem" 
-import { Checkout } from "./Checkout"
-import { useUser } from "./User"
+import styled from 'styled-components'
+import { useCart } from '../lib/cartState'
+import moneyFormat from '../lib/moneyFormat'
+import CartItem from './CartItem'
+import { Checkout } from './Checkout'
+import { useUser } from './User'
 
 const CartStyle = styled.div`
     position: fixed;
@@ -34,7 +34,6 @@ const CartStyle = styled.div`
     }
     @media (max-width: 425px) {
         min-width: 100vw;
-
         grid-template-rows: auto 1fr;
         .cartlist {
             position: relative;
@@ -44,10 +43,7 @@ const CartStyle = styled.div`
             left: -90px;
         }
         ul {
-          
-
             padding: 0;
-            
         }
     }
 `
@@ -69,19 +65,6 @@ const CloseButtonStyle = styled.button`
     border-radius: 3px;
     top: 2rem;
     right: 3rem;
-   /*  @media (max-width: 768px) {
-        background-color: white;
-        position: absolute;
-        top: 1.5rem;
-        right: 1.5rem;
-        border-radius: 50%;
-        height: 7rem;
-        width: 7rem;
-        cursor: pointer;
-        z-index: 11;
-        box-shadow: 0 1rem 3rem rgba(182, 237, 200, 0.3);
-        text-align: center;
-    } */
 `
 function totalPrice(cart) {
     return cart.reduce((tally, cartItem) => {
@@ -90,29 +73,28 @@ function totalPrice(cart) {
     }, 0)
 }
 export default function Cart({ cartItem }) {
-  const cartStuff = useUser()
-  const {cartOpen, toggleCart} = useCart()
-  if (!cartStuff) return null
-  
-  
-  return (
-      <CartStyle open={cartOpen}>
-          <CartNameStyle>
-              {cartStuff.name}'s Cart
-              
-                  <CloseButtonStyle type='button' onClick={toggleCart}>
-                      X
-                  </CloseButtonStyle>
-             
-          </CartNameStyle>
+    const cartStuff = useUser()
+    const { cartOpen, toggleCart } = useCart()
+    if (!cartStuff) return null
 
-          <ul className="cartlist">
-              {cartStuff.cart.map((cartItem) => (
-                  <CartItem key={cartItem.id} cartItem={cartItem} />
-              ))}
-          </ul>
-      <p className="para"><em>Total {moneyFormat(totalPrice(cartStuff.cart))}</em></p>
-      <Checkout/>
-      </CartStyle>
-  )
-} 
+    return (
+        <CartStyle open={cartOpen}>
+            <CartNameStyle>
+                {cartStuff.name}'s Cart
+                <CloseButtonStyle type='button' onClick={toggleCart}>
+                    X
+                </CloseButtonStyle>
+            </CartNameStyle>
+
+            <ul className='cartlist'>
+                {cartStuff.cart.map((cartItem) => (
+                    <CartItem key={cartItem.id} cartItem={cartItem} />
+                ))}
+            </ul>
+            <p className='para'>
+                <em>Total {moneyFormat(totalPrice(cartStuff.cart))}</em>
+            </p>
+            <Checkout />
+        </CartStyle>
+    )
+}

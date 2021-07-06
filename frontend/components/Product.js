@@ -9,7 +9,7 @@ const ProductStyles = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); */
     grid-gap: 1rem;
     border: 1px solid #e2e2e2;
-    border-radius: 0.5rem;
+    border-radius: 7px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -41,7 +41,7 @@ const ProductStyles = styled.div`
         text-align: center;
         text-decoration: none;
         min-width: 20%;
-        border-radius: 3px;
+        border-radius: 4px;
         border: 1px solid black;
         grid-row: 2 / 2;
         padding: 1rem;
@@ -62,7 +62,7 @@ const ProductStyles = styled.div`
     .delete {
         text-align: center;
         min-width: 20%;
-        border-radius: 3px;
+        border-radius: 4px;
         padding: 1rem;
         border: 1px solid black;
         & > * {
@@ -83,7 +83,7 @@ const ProductStyles = styled.div`
     .add {
         text-align: center;
         min-width: 20%;
-        border-radius: 3px;
+        border-radius: 4px;
         padding: 1rem;
         border: 1px solid black;
         & > * {
@@ -112,7 +112,7 @@ const ProductTextStyle = styled.h2`
     margin: 0rem;
     font-size: 1.25rem;
     padding: 1rem;
-    border-radius: 3px;
+    border-radius: 4px;
     a {
         display: inline;
         font-size: 4rem;
@@ -154,7 +154,7 @@ const ProductPriceStyle = styled.h3`
     top: 0px;
     right: 0px;
     padding: 1rem;
-    border-radius: 3px;
+    border-radius: 4px;
 `
 
 export default function Product({ product }) {
