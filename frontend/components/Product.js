@@ -147,7 +147,6 @@ const ProductPriceStyle = styled.h3`
     position: absolute;
     background-color: rgb(9, 0, 124);
     color: white;
-    border-radius: 4px;
     margin: 0rem;
     font-size: 2rem;
     display: inline-block;
@@ -155,6 +154,7 @@ const ProductPriceStyle = styled.h3`
     top: 0px;
     right: 0px;
     padding: 1rem;
+    border-radius: 4px;
 `
 
 export default function Product({ product }) {
