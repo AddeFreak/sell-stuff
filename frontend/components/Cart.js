@@ -15,6 +15,7 @@ const CartStyle = styled.div`
     background: white;
     top: 0;
     right: 0;
+    bottom: 0;
     min-width: 500px;
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
     display: grid;
@@ -24,6 +25,8 @@ const CartStyle = styled.div`
         list-style: none;
         overflow: scroll;
         overflow-x: hidden;
+        margin: 0;
+        padding: 1rem;
     }
     p {
         margin-left: 0.5rem;

@@ -14,6 +14,7 @@ const RemoveButtonStyle = styled.button`
     background-color: white;
     background: none;
     border: 0;
+    font-size: 2rem;
     &:hover {
         cursor: pointer;
     }
