@@ -13,8 +13,8 @@ const REMOVE_FROM_CART_MUTATION = gql`
 const RemoveButtonStyle = styled.button`
     background-color: white;
     background: none;
-    border: 0;
     font-size: 2rem;
+    border: 0;
     &:hover {
         cursor: pointer;
     }
