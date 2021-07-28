@@ -11,7 +11,7 @@ const OrderStyles = styled.div`
     border: 1px solid rgb(246, 247, 247);
     box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.09);
     padding: 2rem;
-    border-top: 10px solid red;
+    border-top: 10px solid #305a72;
     & > p {
         display: grid;
         grid-template-columns: 1fr 5fr;
@@ -37,6 +37,35 @@ const OrderStyles = styled.div`
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        @media (max-width: 425px) {
+            display: inline-block;
+            padding: 2rem;
+
+            img {
+                width: 50%;
+                height: 50%;
+                object-fit: cover;
+            }
+        }
+    }
+    @media (max-width: 768px) {
+        display: inline-block;
+        padding: 2rem;
+        /* max-width: 300px; */
+        img {
+            width: 50%;
+            height: 50%;
+            object-fit: cover;
+        }
+        span {
+            padding: 1rem;
+            
+            &:first-child {
+                font-weight: 100;
+                font-size: small;
+                text-align: right;
+            }
         }
     }
 `

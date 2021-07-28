@@ -56,7 +56,7 @@ const glow = keyframes`
 `
 
 const SearchStyles = styled.div`
-    /*  position: relative; */
+     position: relative;
     input {
         width: 100%;
         padding: 10px;

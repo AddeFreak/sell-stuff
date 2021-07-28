@@ -7,9 +7,12 @@ import moneyFormat from '../lib/moneyFormat'
 import Link from 'next/link'
 
 const OrderUl = styled.ul`
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-grid-gap: 4rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 4rem;
+    @media (max-width: 425px) {
+        display: inline-block;
+    }
 `
 const OrderItemStyles = styled.li`
     box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.09);
@@ -48,6 +51,9 @@ const OrderItemStyles = styled.li`
             display: block;
             margin-bottom: 1rem;
         }
+    }
+    @media (max-width: 425px) {
+
     }
 `
 const USER_ORDERS_QUERY = gql`
@@ -107,7 +113,7 @@ export default function OrdersPage() {
                                 <div className='images'>
                                     {order.items.map((item) => (
                                         <img
-                                            key={item.id}
+                                            key={`image-${item.id}`}
                                             src={
                                                 item.picture?.image
                                                     ?.publicUrlTransformed

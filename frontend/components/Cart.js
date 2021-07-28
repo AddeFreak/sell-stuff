@@ -31,22 +31,23 @@ const CartStyle = styled.div`
     p {
         margin-left: 0.5rem;
     }
-    .para {
+    .total {
         margin-left: 3rem;
         font-size: 2.5rem;
+        padding: 1rem;
     }
     @media (max-width: 425px) {
         min-width: 100vw;
         grid-template-rows: auto 1fr;
         .cartlist {
             position: relative;
-            margin-top: 15px;
             min-height: 50vh;
-            min-width: 80vw;
-            left: -90px;
+            min-width: 90vw;
+             left: -150px;
+             box-shadow: none;
         }
         ul {
-            padding: 0;
+            padding: 1rem;
         }
     }
 `
@@ -94,7 +95,7 @@ export default function Cart({ cartItem }) {
                     <CartItem key={cartItem.id} cartItem={cartItem} />
                 ))}
             </ul>
-            <p className='para'>
+            <p className='total'>
                 <em>Total {moneyFormat(totalPrice(cartStuff.cart))}</em>
             </p>
             <Checkout />

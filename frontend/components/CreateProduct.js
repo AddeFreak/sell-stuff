@@ -42,12 +42,7 @@ const FormStyle = styled.form`
     fieldset {
         border: none;
     }
-    @media screen and (max-width: 300px) {
-        span.psw {
-            display: block;
-            float: none;
-        }
-    }
+   
 `
 const CREATE_PRODUCT_MUTATION = gql`
     mutation CREATE_PRODUCT_MUTATION(
