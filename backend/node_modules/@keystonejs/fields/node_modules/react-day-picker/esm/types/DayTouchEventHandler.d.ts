@@ -1,0 +1,6 @@
+/// <reference types="react" />
+import { ModifierStatus } from './ModifierStatus';
+/**
+ * Represent the event handler when a day gets a touch event.
+ */
+export declare type DayTouchEventHandler = (day: Date, modifiers: ModifierStatus, e: React.TouchEvent) => void;

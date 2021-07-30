@@ -1,0 +1,7 @@
+import { Locale } from 'date-fns';
+/**
+ * The default formatter for the caption.
+ */
+export declare function formatCaption(month: Date, options?: {
+    locale?: Locale;
+}): string;
