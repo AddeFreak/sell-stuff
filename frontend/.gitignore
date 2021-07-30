@@ -128,7 +128,7 @@ tmp/
 temp/
 
 
-
+.vscode
 *.env
 !sample.env
 config/default.ts
