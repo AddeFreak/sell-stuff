@@ -8,7 +8,6 @@
 	"scripts": {
 		"deploy": "keystone-next build && keystone-next prisma deploy",
 		"dev": "keystone-next",
-		"postinstall": "keystone-next postinstall",
 		"start": "keystone-next start"
 	},
 	"eslintConfig": {
