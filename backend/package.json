@@ -3,10 +3,11 @@
 	"version": "1.0.0",
 	"private": true,
 	"author": "Adde",
+	"main": "web.js",
 	"license": "MIT",
 	"scripts": {
+		"deploy": "keystone-next build && keystone-next prisma deploy",
 		"dev": "keystone-next",
-		"deploy": "keystone-next build && keystone-next prisma migrate deploy",
 		"postinstall": "keystone-next postinstall",
 		"start": "keystone-next start"
 	},
