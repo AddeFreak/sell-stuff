@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"private": true,
 	"author": "Adde",
-	"main": "web.js",
+	"main": "keystone.ts",
 	"license": "MIT",
 	"scripts": {
 		"deploy": "keystone-next build && keystone-next prisma deploy",

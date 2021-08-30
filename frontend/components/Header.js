@@ -43,9 +43,6 @@ const StyledHeader = styled.header`
         }
     }
     .subnav {
-        /* display: grid;
-        grid-template-columns: auto 1fr;
-        border-bottom: 1px solid black; */
         p {
             margin-left: 1rem;
         }
