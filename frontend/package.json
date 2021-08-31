@@ -3,6 +3,10 @@
     "version": "1.0.0",
     "description": "My first keystone/next.js app!",
     "main": "index.js",
+    "engines": {
+        "node": "14.x",
+        "npm": "6.x"
+    },
     "scripts": {
         "dev": "next -p 7777",
         "build": "next build",
