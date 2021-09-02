@@ -24,7 +24,7 @@ function createClient({ initialState, headers }){
                 uri:
                     process.env.NODE_ENV === 'development'
                         ? endpoint
-                        : prodEndpoint,
+                        : process.env.NEXT_PUBLIC_BACKEND_URL,
                 fetchOptions: {
                     credentials: 'include',
                 },
