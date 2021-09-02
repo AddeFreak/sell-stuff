@@ -136,7 +136,7 @@ temp/
 config/default.ts
 variables.env
 .next
-.build
+
 .keystone
 tags
 *.graphql.d.ts
