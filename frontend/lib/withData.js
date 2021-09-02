@@ -1,5 +1,5 @@
 import withApollo from 'next-with-apollo';
-import {endpoint} from '../config'
+import {endpoint, prodEndpoint} from '../config'
 import { ApolloClient, ApolloLink, InMemoryCache } from '@apollo/client';
 import { createUploadLink } from 'apollo-upload-client';
 import { getDataFromTree } from '@apollo/client/react/ssr'
