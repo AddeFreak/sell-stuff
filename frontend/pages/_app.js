@@ -1,4 +1,4 @@
-import Pages from '../components/Pages';
+import Page from '../components/Page';
 import { ApolloProvider } from '@apollo/client';
 import withData from '../lib/withData'
 import { CartStateProvider } from '../lib/cartState';
@@ -14,9 +14,9 @@ function MyApp({ Component, pageProps, apollo }) {
   return (
     <ApolloProvider client={apollo}>
       <CartStateProvider>
-    <Pages>
+    <Page>
       <Component {...pageProps} />
-        </Pages>
+        </Page>
       </CartStateProvider>
     </ApolloProvider>
   );

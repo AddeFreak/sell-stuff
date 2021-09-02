@@ -29,7 +29,7 @@ const PageStyle = styled.div`
     margin: 0 auto;
     padding: 2rem;
 `
-export default function Pages({ children }) {
+export default function Page({ children }) {
     return (
         <div>
             <GlobalStyles />
@@ -39,6 +39,6 @@ export default function Pages({ children }) {
     )
 }
 
-Pages.propTypes = {
+Page.propTypes = {
     children: PropTypes.any,
 }
